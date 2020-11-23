@@ -30,8 +30,8 @@ Prerequisites:
 * [Task 4: Run JupyterLab with admin rights <g-emoji class="g-emoji" alias="unlock" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f513.png">🔓</g-emoji>](#task-4-run-jupyterlab-with-admin-rights-)
 * [Task 5: Customize the Dockerfile <g-emoji class="g-emoji" alias="package" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e6.png">📦</g-emoji>](#task-5-customize-the-dockerfile-)
 * [Task 6: Login to Container Registries <g-emoji class="g-emoji" alias="key" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f511.png">🔑</g-emoji>](#task-6-login-to-container-registries-)
-    * [DockerHub](#dockerhub)
-    * [GitHub Container Registry](#github-container-registry)
+    * [Login to DockerHub](#login-to-dockerhub)
+    * [Login to GitHub Container Registry](#login-to-github-container-registry)
 * [Bonus: Publish your image <g-emoji class="g-emoji" alias="loudspeaker" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e2.png">📢</g-emoji>](#bonus-publish-your-image-)
     * [Publish to GitHub Container Registry](#publish-to-github-container-registry)
     * [Publish to DockerHub](#publish-to-dockerhub)
@@ -301,7 +301,7 @@ docker build -t my-jupyterlab .
 
 It is recommended to login to existing Container Registries if you have a user on their platform (e.g. DockerHub, GitHub), it will enable higher download limitations and rates! 🏆
 
-### DockerHub
+### Login to DockerHub
 
 1. Get a [DockerHub](https://hub.docker.com/) account at https://hub.docker.com (you most probably already have one if you installed Docker Desktop)
 
@@ -313,7 +313,7 @@ docker login
 
 3. Provide your DockerHub username and password.
 
-### GitHub Container Registry
+### Login to GitHub Container Registry
 
 Use your existing [GitHub](https://github.com) account if you have one:
 
