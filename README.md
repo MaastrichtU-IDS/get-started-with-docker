@@ -1,6 +1,6 @@
 # Get started with Docker containers 🐳
 
-A workshop to get started with Docker in an hour 🕐 (hopefully).
+A workshop to get started with Docker in an hour 🕐 (hopefully)!
 
 During this workshop you will:
 
@@ -15,18 +15,20 @@ Prerequisites:
   * If you use Windows 🏢, we recommend you to use Docker with [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
   * If you use Linux 🐧, you will need to make sure you have also [`docker-compose` installed](https://docs.docker.com/compose/install/)
 * Really basic knowledge of how to navigate in the terminal ⌨️
-  * **L**i**s**t files in current directory: `ls`
-  * Find the **P**ath to the (current) **W**orking **D**irectory: `pwd`
-  * **C**hange **D**irectory: `cd subfolder` or `cd ../parent-folder`
-  * When defining a path, the dot `.` defines the current directory, it is usually used at the start of the path, e.g. `./data` for the data folder in the current directory)
-  * N.B.: folder and directory usually means the same thing.
+  1. **L**i**s**t files in current directory: `ls`
+  2. Find the **P**ath to the (current) **W**orking **D**irectory: `pwd`
+  3. **C**hange **D**irectory: `cd subfolder` or `cd ../parent-folder`
+
+  > When defining a path, the dot `.` defines the current directory, it is usually used at the start of the path, e.g. `./data` for the data folder in the current directory)
+  >
+  > N.B.: folder and directory usually means the same thing.
 
 ## Table of Content 🧭
 
 * [Get the workshop files <g-emoji class="g-emoji" alias="inbox_tray" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e5.png">📥</g-emoji>](#get-the-workshop-files-)
 * [Task 1: Find and start a database container <g-emoji class="g-emoji" alias="mag_right" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f50e.png">🔎</g-emoji>](#task-1-find-and-start-a-database-container-)
 * [Task 2: Start the container with a docker-compose file <g-emoji class="g-emoji" alias="clipboard" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4cb.png">📋</g-emoji>](#task-2-start-the-container-with-a-docker-compose-file-)
-* [Task 3: Add a JupyterLab to the docker-compose <g-emoji class="g-emoji" alias="microscope" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f52c.png">🔬</g-emoji>](#task-3-add-a-jupyterlab-to-the-docker-compose-)
+* [Task 3: Add JupyterLab to the docker-compose <g-emoji class="g-emoji" alias="telescope" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f52d.png">🔭</g-emoji>](#task-3-add-jupyterlab-to-the-docker-compose-)
 * [Task 4: Run JupyterLab with admin rights <g-emoji class="g-emoji" alias="unlock" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f513.png">🔓</g-emoji>](#task-4-run-jupyterlab-with-admin-rights-)
 * [Task 5: Customize the Dockerfile <g-emoji class="g-emoji" alias="package" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e6.png">📦</g-emoji>](#task-5-customize-the-dockerfile-)
 * [Task 6: Login to Container Registries <g-emoji class="g-emoji" alias="key" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f511.png">🔑</g-emoji>](#task-6-login-to-container-registries-)
@@ -42,15 +44,15 @@ Prerequisites:
 
 Use `git` to clone the repository
 
-1. Open your terminal
+1. Open your terminal ⌨️
 2. Go to the directory where you want to store the workshop folder (using `cd my-folder/`)
-3. Run:
+3. Clone the GitHub repository with this command:
 
 ```shell
 git clone https://github.com/MaastrichtU-IDS/get-started-with-docker
 ```
 
-> If you don't have `git` installed you can also [download the workshop as a `.zip` file](https://github.com/MaastrichtU-IDS/get-started-with-docker/archive/master.zip) and unzip it.
+> If you don't have `git` installed you can also [download the workshop as a `.zip` file](https://github.com/MaastrichtU-IDS/get-started-with-docker/archive/master.zip) and unzip it 🤐
 
 4. **Go the workshop folder in your terminal**:
 
@@ -81,7 +83,7 @@ We will then use a Docker container:
 * They defined `-v /my/path/to/the/virtuoso/db:/data`. Change it to the `data/virtuoso` folder in your current directory, the path on the left of the `:` is for your computer, the path on the right is where the volume is shared in the container.
 
 * To provide the current directory as shared volume with the docker container the variable to use is different for Windows:
-    
+  
     * For Linux 🐧 and Mac 🍎
     
       ```bash
@@ -150,7 +152,7 @@ docker-compose logs
 docker-compose down
 ```
 
-## Task 3: Add a JupyterLab to the docker-compose 🔬
+## Task 3: Add JupyterLab to the docker-compose 🔭
 
 We will **add a JupyterLab to the docker-compose**, and use it to query the Virtuoso triplestore.
 
