@@ -54,25 +54,23 @@ We will then use a Docker container:
     * Check for a recent image that seems to be kept up-to-date, with an active community, or company behind if possible
     * Check the number of downloads to see how popular it is
     * You can also check how the application is installed in the `Dockerfile` (when source code available)
-    * Note that currently most existing images are available on DockerHub, but things are changing. Using an image from a different registry does not change anything else than the start of the Image name (quay.io, ghcr.io...)
+    * Note that currently most existing images are available on DockerHub, but things are changing (quay.io, ghcr.io...). Using an image from a different registry does not change anything else than the image name.
 
 3. 👨‍💻 Follow the instructions from [tenforce/virtuoso](https://hub.docker.com/r/tenforce/virtuoso/) to start the Virtuoso triplestore using the `docker run` command. You will just need to change the shared volume:
 
-    * They defined `-v /my/path/to/the/virtuoso/db:/data`
-
-    * Change it to the `data/virtuoso` folder in your current directory, the path on the left of the `:` is for your computer, the path on the right is where the volume is shared in the container.
+    * They defined `-v /my/path/to/the/virtuoso/db:/data`. Change it to the `data/virtuoso` folder in your current directory, the path on the left of the `:` is for your computer, the path on the right is where the volume is shared in the container.
 
     * To provide the current directory as shared volume with the docker container the variable to use is different for Windows:
-      * For Linux and Mac (use `\` at the end if you are using a command defined on multiple lines):
-
+  * For Linux and Mac:
+    
       ```shell
-      -v $(pwd)/data/virtuoso:/data
+  -v $(pwd)/data/virtuoso:/data
       ```
-
+    
       * For Windows, remove all the newlines with their extra `\`, and use:
 
       ```powershell
-      -v ${PWD}/data/virtuoso:/data
+  -v ${PWD}/data/virtuoso:/data
       ```
 
 👨‍💻 Access the Virtuoso triplestore on http://localhost:8890 (admin login: `dba` / `dba`)
@@ -157,7 +155,7 @@ We will use a JupyterLab image with SPARQL libraries hosted on the [MaastrichU-I
 
 3. Create the folder with the right permissions before starting the containers:
 
-You can create the folder you will use to store JupyterLab data, and define the right permissions, before running the JupyterLab container:
+You need to create the folder you will use to store JupyterLab data, and define the right permissions, before running the JupyterLab container:
 
 ```shell
 sudo mkdir -p data/jupyterlab
@@ -172,13 +170,13 @@ docker-compose up
 
 Access JupyterLab on http://localhost:8888 (use `dba` as password) and Virtuoso on http://localhost:8890
 
-> ⚠️ If you are still experiencing issue with the folder permissions (e.g. impossible to create or save a file in JupyterLab) remove the volume from JupyterLab and it will use an ephemeral storage that disappear when the container is deleted.
+> ⚠️ If you are still experiencing issue with the folder permissions (e.g. impossible to create or save a file in JupyterLab) remove the volume from JupyterLab. Docker will use an ephemeral storage that disappear when the container is deleted.
 
 5. Query the Virtuoso database from the JupyterLab container
    
-   * Create a **SPARQL notebook**
+   * Create a **SPARQL notebook** in JupyterLab
    
-   * Create a cell to define the triplestore SPARQL endpoint URL:
+   * Create a cell to run a SPARQL query on the Virtuoso triplestore SPARQL endpoint:
    
      ```SPARQL
      %endpoint http://db:8890/sparql
@@ -189,7 +187,7 @@ Access JupyterLab on http://localhost:8888 (use `dba` as password) and Virtuoso 
    
    * Now **run the cell** to query the triplestore from the notebook 🚀
 
-> By default `docker-compose` will create a network so that the services can access each other using their service identifier as URL without the need to expose the ports. 
+> By default `docker-compose` will create a network so that the services can access each other using their service identifier from the YAML as URL without the need to expose the ports. 
 >
 > 💡 This allows you to easily deploy a public application on top of a hidden database.
 
@@ -242,7 +240,7 @@ We will improve the `Dockerfile` of the JupyterLab container to have a custom im
 
 Use the `Dockerfile` provided in the workshop folder to define your image.
 
-We start from the JupyterLab image we were previously using:
+It will start from the JupyterLab image we were previously using:
 
 ```dockerfile
 FROM ghcr.io/maastrichtu-ids/jupyterlab-on-openshift
