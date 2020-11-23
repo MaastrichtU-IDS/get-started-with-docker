@@ -65,15 +65,15 @@ We will then use a Docker container:
     * To provide the current directory as shared volume with the docker container the variable to use is different for Windows:
   * For Linux 🐧 and Mac 🍎
     
-      ```shell
+    ```shell
     -v $(pwd)/data/virtuoso:/data
-      ```
+    ```
     
       * For Windows 🏢 (remove all the newlines with their extra `\` to have one line):
 
-      ```powershell
+    ```powershell
     -v ${PWD}/data/virtuoso:/data
-      ```
+    ```
 
 👨‍💻 Access the Virtuoso triplestore on http://localhost:8890 (admin login: `dba` / `dba`)
 
