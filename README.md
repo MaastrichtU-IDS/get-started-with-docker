@@ -22,22 +22,21 @@ Prerequisites:
   * N.B.: folder and directory usually means the same thing.
 
 ## Table of content
-   * [Get started with Docker containers <g-emoji class="g-emoji" alias="whale" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f433.png">🐳</g-emoji>](#get-started-with-docker-containers-)
-      * [Table of content](#table-of-content)
-      * [Get the workshop files <g-emoji class="g-emoji" alias="inbox_tray" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e5.png">📥</g-emoji>](#get-the-workshop-files-)
-      * [Task 1: Find and start a database container <g-emoji class="g-emoji" alias="mag_right" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f50e.png">🔎</g-emoji>](#task-1-find-and-start-a-database-container-)
-      * [Task 2: Start the container with a docker-compose file <g-emoji class="g-emoji" alias="clipboard" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4cb.png">📋</g-emoji>](#task-2-start-the-container-with-a-docker-compose-file-)
-      * [Task 3: Add a JupyterLab to the docker-compose <g-emoji class="g-emoji" alias="microscope" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f52c.png">🔬</g-emoji>](#task-3-add-a-jupyterlab-to-the-docker-compose-)
-      * [Task 4: Run JupyterLab with admin rights <g-emoji class="g-emoji" alias="unlock" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f513.png">🔓</g-emoji>](#task-4-run-jupyterlab-with-admin-rights-)
-      * [Task 5: Customize the Dockerfile <g-emoji class="g-emoji" alias="package" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e6.png">📦</g-emoji>](#task-5-customize-the-dockerfile-)
-      * [Task 6: Login to Container Registries <g-emoji class="g-emoji" alias="key" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f511.png">🔑</g-emoji>](#task-6-login-to-container-registries-)
-         * [DockerHub](#dockerhub)
-         * [GitHub Container Registry](#github-container-registry)
-      * [Bonus: Publish your image <g-emoji class="g-emoji" alias="loudspeaker" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e2.png">📢</g-emoji>](#bonus-publish-your-image-)
-         * [Publish to GitHub Container Registry](#publish-to-github-container-registry)
-         * [Publish to DockerHub](#publish-to-dockerhub)
-         * [Use automated workflows](#use-automated-workflows)
-      * [Checkout the solution <g-emoji class="g-emoji" alias="heavy_check_mark" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png">✔️</g-emoji>](#checkout-the-solution-\xEF\xB8\x8F)
+
+* [Get the workshop files <g-emoji class="g-emoji" alias="inbox_tray" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e5.png">📥</g-emoji>](#get-the-workshop-files-)
+* [Task 1: Find and start a database container <g-emoji class="g-emoji" alias="mag_right" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f50e.png">🔎</g-emoji>](#task-1-find-and-start-a-database-container-)
+* [Task 2: Start the container with a docker-compose file <g-emoji class="g-emoji" alias="clipboard" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4cb.png">📋</g-emoji>](#task-2-start-the-container-with-a-docker-compose-file-)
+* [Task 3: Add a JupyterLab to the docker-compose <g-emoji class="g-emoji" alias="microscope" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f52c.png">🔬</g-emoji>](#task-3-add-a-jupyterlab-to-the-docker-compose-)
+* [Task 4: Run JupyterLab with admin rights <g-emoji class="g-emoji" alias="unlock" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f513.png">🔓</g-emoji>](#task-4-run-jupyterlab-with-admin-rights-)
+* [Task 5: Customize the Dockerfile <g-emoji class="g-emoji" alias="package" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e6.png">📦</g-emoji>](#task-5-customize-the-dockerfile-)
+* [Task 6: Login to Container Registries <g-emoji class="g-emoji" alias="key" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f511.png">🔑</g-emoji>](#task-6-login-to-container-registries-)
+    * [DockerHub](#dockerhub)
+    * [GitHub Container Registry](#github-container-registry)
+* [Bonus: Publish your image <g-emoji class="g-emoji" alias="loudspeaker" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e2.png">📢</g-emoji>](#bonus-publish-your-image-)
+    * [Publish to GitHub Container Registry](#publish-to-github-container-registry)
+    * [Publish to DockerHub](#publish-to-dockerhub)
+    * [Use automated workflows](#use-automated-workflows)
+* [Checkout the solution <g-emoji class="g-emoji" alias="heavy_check_mark" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png">✔️</g-emoji>](#checkout-the-solution-)
 
 ## Get the workshop files 📥
 
