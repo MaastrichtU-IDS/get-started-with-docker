@@ -13,7 +13,7 @@ git clone https://github.com/MaastrichtU-IDS/get-started-with-docker.git
 cd get-started-with-docker
 ```
 
-2. Create a new branch from the `master` branch and add your changes to this branch 🕊️
+2. Create a new branch from the `main` branch and add your changes to this branch 🕊️
 
 ```bash
 git checkout -b my-branch
@@ -25,7 +25,7 @@ git checkout -b my-branch
 
 1. Ensure the workshop is working before sending a pull request 🧪
 2. Update the `README.md` with details of changes, this includes new environment variables, exposed ports, useful file locations and container parameters 📝
-3. [Send a pull request](https://github.com/MaastrichtU-IDS/get-started-with-docker/compare) to the `master` branch, answer the questions in the pull request message 📤
+3. [Send a pull request](https://github.com/MaastrichtU-IDS/get-started-with-docker/compare) to the `main` branch, answer the questions in the pull request message 📤
 4. Project contributors will review your change as soon as they can ✔️
 
 ## Versioning process

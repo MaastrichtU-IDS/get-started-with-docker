@@ -2,5 +2,29 @@ version: "3"
 
 services:
 
+  # Define the configuration for the db service (Virtuoso) 
   db:
     container_name: virtuoso
+    # image: tenforce/virtuoso:1.3.1-virtuoso7.2.2
+    image: tenforce/virtuoso:latest
+    environment:
+      SPARQL_UPDATE: "true"
+      DEFAULT_GRAPH: "https://w3id.org/um/ids/graph"
+      DBA_PASSWORD: dba
+    volumes:
+      - ./data/virtuoso:/data
+    ports:
+      - "8890:8890"
+
+  jupyterlab:
+    container_name: jupyterlab
+    image: ghcr.io/maastrichtu-ids/jupyterlab-on-openshift
+    environment:
+      - JUPYTER_TOKEN=dba
+      - JUPYTER_ENABLE_LAB=yes
+      - GRANT_SUDO=yes
+    volumes:
+      - ./data/jupyterlab:/home/jovyan
+    ports:
+      - 8888:8888
+    user: root

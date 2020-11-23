@@ -17,8 +17,8 @@ services:
 
   jupyterlab:
     container_name: jupyterlab
-    image: ghcr.io/maastrichtu-ids/jupyterlab-on-openshift
-    # build: .
+    # image: ghcr.io/maastrichtu-ids/jupyterlab-on-openshift
+    build: .
     user: root
     ports:
       - 8888:8888

@@ -23,7 +23,7 @@ Use `git` to clone the repository 📥
 2. Go to the directory where you want to store the workshop folder
 3. Run:
 
-```bash
+```shell
 git clone https://github.com/MaastrichtU-IDS/get-started-with-docker
 ```
 
@@ -31,7 +31,7 @@ git clone https://github.com/MaastrichtU-IDS/get-started-with-docker
 
 4. **Go the workshop folder in your terminal**:
 
-```bash
+```shell
 cd get-started-with-docker
 ```
 
@@ -39,29 +39,31 @@ cd get-started-with-docker
 
 ## Task 1: Find and start a database container
 
-We want to start the [OpenLink Virtuoso database](http://vos.openlinksw.com/owiki/wiki/VOS) (a triplestore for RDF data) without loosing time installing all the required packages and setting up the configuration. We will then use a Docker container.
+We want to start the [OpenLink Virtuoso database](http://vos.openlinksw.com/owiki/wiki/VOS) (a triplestore for RDF data) without loosing time installing all the required packages and setting up the configuration. 
 
-1. 👨‍💻 Search for [**"virtuoso docker" on Google**](https://www.google.com/search?q=virtuoso+docker) (or your favorite search engine).
+We will then use a Docker container:
 
-2. Various image should be found. Here is a few advices to pick the right existing Docker image for a service:
+1. 🔎 Search for [**"virtuoso docker" on Google**](https://www.google.com/search?q=virtuoso+docker) (or your favorite search engine).
 
-    * Check for recent image that seems to be kept up-to-date (with an active community or company behind if possible)
+2. Various image will be found. Here is a few advices to pick the right Docker image for a service:
+
+    * Check for a recent image that seems to be kept up-to-date, with an active community, or company behind if possible
     * Check the number of downloads to see how popular it is
-    * You can also check how the application is installed in the [Dockerfile](https://github.com/tenforce/docker-virtuoso/blob/master/Dockerfile) (when source code available)
+    * You can also check how the application is installed in the `Dockerfile` (when source code available)
     * Note that currently most existing images are available on DockerHub, but things are changing. Using an image from a different registry does not change anything else than the start of the Image name (quay.io, ghcr.io...)
       * It is recommended to login to the Container Registries if you have a user (DockerHub, GitHub), it will award you greater download limitations.
 
 3. 👨‍💻 Follow the instructions from [tenforce/virtuoso](https://hub.docker.com/r/tenforce/virtuoso/) to start the Virtuoso triplestore using the `docker run` command. You will just need to change the shared volume:
 
-    * They defined `-v /my/path/to/the/virtuoso/db:/data \`
+    * They defined `-v /my/path/to/the/virtuoso/db:/data`
 
     * Change it to the `data/virtuoso` folder in your current directory, the path on the left of the `:` is for your computer, the path on the right is where the volume is shared in the container.
 
     * To provide the current directory as shared volume with the docker container the variable to use is different for Windows:
-      * For Linux and Mac use (use `\` at the end if you are using a command defined on multiple lines):
+      * For Linux and Mac (use `\` at the end if you are using a command defined on multiple lines):
 
-      ```bash
-      -v $(pwd)/data/virtuoso:/data \
+      ```shell
+      -v $(pwd)/data/virtuoso:/data
       ```
 
       * For Windows, remove all the newlines with their extra `\`, and use:
@@ -70,7 +72,9 @@ We want to start the [OpenLink Virtuoso database](http://vos.openlinksw.com/owik
       -v ${PWD}/data/virtuoso:/data
       ```
 
-👨‍💻 Access the Virtuoso triplestore on http://localhost:8890
+👨‍💻 Access the Virtuoso triplestore on http://localhost:8890 (admin login: `dba` / `dba`)
+
+> You can also check how Virtuoso is installed in the image [Dockerfile](https://github.com/tenforce/docker-virtuoso/blob/master/Dockerfile)
 
 ## Task 2: Start the container with docker-compose
 
@@ -79,43 +83,48 @@ Open the `docker-compose.yml` file provided in the workshop folder with your fav
 Follow [tenforce/virtuoso](https://hub.docker.com/r/tenforce/virtuoso/) instructions to define a `docker-compose.yml` file to run Virtuoso, and make some changes:
 
 * Define a fixed container name: `container_name: virtuoso` 
-* Change the `DBA_PASSWORD` to `dba`
+* Use the `latest` tag of the image: `tenforce/virtuoso:latest`
+* Set the `DBA_PASSWORD` environment variable to `dba`
 * Change the `DEFAULT_GRAPH` to https://w3id.org/um/ids/graph
 
-> N.B.: In the `docker-compose.yml` file you can use the current directory of the yml file to store the container data, use `.` at the start of the volume path:
+> N.B.: In the `docker-compose.yml` file we use the current directory of the yml file to store the container data, use `.` at the start of the volume path:
 >
 > ```yaml
 >     volumes:
 >       - ./data/virtuoso:/data
 > ```
 
-Open your terminal and go to he directory where the `docker-compose.yml` is stored.
+👨‍💻 Start the containers defined in the `docker-compose.yml` file from your terminal:
 
-👨‍💻 Start the containers defined in the `docker-compose.yml` file:
-
-```bash
+```shell
 docker-compose up
 ```
 
 You can check running Docker containers on your laptop via the Docker Desktop UI or running this command in the terminal:
 
-```bash
+```shell
 docker ps
 ```
 
-> Try to access the Virtuoso triplestore running on http://localhost:8890/sparql
+> Try to access the Virtuoso triplestore running on http://localhost:8890
 
 Stop the docker-compose running in your terminal by hitting the keys `ctrl + C`
 
 👨‍💻 Run the containers detached from your terminal (in the background):
 
-```bash
+```shell
 docker-compose up -d
+```
+
+👨‍💻 Check the logs of the running containers:
+
+```shell
+docker-compose logs
 ```
 
 👨‍💻 Stop the running containers:
 
-```bash
+```shell
 docker-compose down
 ```
 
@@ -123,50 +132,46 @@ docker-compose down
 
 We will **add a JupyterLab to the docker-compose**, and use it to query the Virtuoso triplestore.
 
-https://github.com/MaastrichtU-IDS/jupyterlab-on-openshift/
-
 We will use a JupyterLab image with SPARQL libraries hosted on the [MaastrichU-IDS GitHub Container Registry](https://github.com/orgs/MaastrichtU-IDS/packages/container/package/jupyterlab-on-openshift).
 
-1. Add the `jupyterlab` service to your `docker-compose.yml`:
+1. Add the `jupyterlab` service to your `docker-compose.yml` (be careful with the indentation, it is meaninful):
 
 ```yaml
-version: "3"
-services:
   jupyterlab:
     container_name: jupyterlab
     image: ghcr.io/maastrichtu-ids/jupyterlab-on-openshift
     environment:
-      - JUPYTER_TOKEN=password
+      - JUPYTER_TOKEN=dba
       - JUPYTER_ENABLE_LAB=yes
-    volumes:
-      - ./data/jupyterlab:/home/jovyan
 ```
 
-👨‍💻 You will need to add:
+2. 👨‍💻 You will need to add:
 
-* The Jupyter notebooks port used by the image: `8888`
-* The shared volume on `./data/jupyterlab:/home/jovyan`
+    * The Jupyter notebooks port used by the image: `8888:8888` 
+    * The shared volume on `./data/jupyterlab:/home/jovyan`
 
-⚠️ The official Jupyter Docker image uses the `jovyan` user by default which does not have admin rights (`sudo`). This can cause issues when writing to the shared volumes, to fix it you can change the owner of the folder or start JupyterLab as root user.
+> ⚠️ The official Jupyter Docker image uses the `jovyan` user by default which does not have admin rights (`sudo`). This can cause issues when writing to the shared volumes, to fix it you can change the owner of the folder or start JupyterLab as root user.
 
-2. Create the folder with the right permissions before starting the containers:
+3. Create the folder with the right permissions before starting the containers:
 
 You can create the folder you will use to store JupyterLab data, and define the right permissions, before running the JupyterLab container:
 
-```bash
-mkdir -p data/jupyterlab
+```shell
+sudo mkdir -p data/jupyterlab
 sudo chown -R 1000:1000 data/jupyterlab
 ```
 
-3. Start JupyterLab and Virtuoso:
+4. Start JupyterLab and Virtuoso:
 
-```bash
+```shell
 docker-compose up
 ```
 
-> ⚠️ If you are still experiencing issue with the folder permissions (e.g. impossible to create or save a file in JupyterLab) go directly to **Task 4** to run JupyterLab with admin rights.
+Access JupyterLab on http://localhost:8888 (use `dba` as password) and Virtuoso on http://localhost:8890
 
-4. Query the Virtuoso database from JupyterLab on http://localhost:8888
+> ⚠️ If you are still experiencing issue with the folder permissions (e.g. impossible to create or save a file in JupyterLab) remove the volume from JupyterLab and it will use an ephemeral storage that disappear when the container is deleted.
+
+5. Query the Virtuoso database from the JupyterLab container
    
    * Create a **SPARQL notebook**
    
@@ -181,21 +186,20 @@ docker-compose up
    
    * Now **run the cell** to query the triplestore from the notebook 🚀
 
+> By default `docker-compose` will create a network so that the services can access each other using their service identifier as URL without the need to expose the ports. 
+>
+> 💡 This allows you to easily deploy a public application on top of a hidden database.
+
 ## Task 4: Run JupyterLab with admin rights
 
 You can also run JupyterLab with the `root` user to have admin rights 🔑
 
 > 👨‍💻 Stop the previously ran Jupyterlab container (`ctrl + C` or `docker-compose down`)
 >
-> Delete the folder created to store the JupyterLab data (you might need to use `sudo`):
->
-> ```bash
-> rm -rf data
-> ```
 
 We will now change the `docker-compose.yml` to start JupyterLab with the root user.
 
-Add the following parameters at the right place in the `docker-compose.yml`:
+👨‍💻 Add the following parameters at the right place in the `docker-compose.yml`:
 
 ```yaml
 services:
@@ -207,17 +211,17 @@ services:
 
 👨‍💻 Restart JupyterLab and Virtuoso:
 
-```bash
+```shell
 docker-compose up --force-recreate
 ```
 
-1. You should now be able to install anything in the JupyterLab container. Open a terminal in JupyterLab and try to install a package:
+1. You should now be able to install anything in the JupyterLab container. Open a terminal in JupyterLab and try to update the packages: `apt update`  will fail due to lack of permission, use `sudo`
 
-   ```bash
-   sudo apt install vim
+   ```shell
+   sudo apt update
    ```
 
-2. Create again a **SPARQL notebook** to query the SPARQL endpoint:
+2. Create again a **SPARQL notebook** in the [JupyterLab](http://localhost:8888) to query the [SPARQL endpoint](http://localhost:8890):
 
    ```SPARQL
    %endpoint http://db:8890/sparql
@@ -245,15 +249,10 @@ FROM ghcr.io/maastrichtu-ids/jupyterlab-on-openshift
 
 1. Change the user to `root` (to have admin rights by default)
 
-2. Install the python package `rdflib` with `pip` (bonus: you can use the `requirements.txt` file to install the `rdflib` package in the container)
+2. Install the python package `rdflib` with `pip install` (💡 bonus: you can use the `requirements.txt` file to install the `rdflib` package in the container)
 
-3. Download the `.jar` file of the RML-mapper in the `/opt` folder:
 
-```bash
-wget -O /opt/rmlmapper.jar https://github.com/RMLio/rmlmapper-java/releases/download/v4.9.0/rmlmapper.jar
-```
-
-4. Go in the `docker-compose.yml` to build the container from the local `Dockerfile` instead of using an image from a Container Registry:
+3. Go in the `docker-compose.yml` to build the container from the local `Dockerfile`, instead of using an existing image:
 
 ```yaml
 services:
@@ -264,19 +263,27 @@ services:
 
 👨‍💻 Build and restart JupyterLab:
 
-```bash
+```shell
 docker-compose up --build
 ```
 
 You can also build the image using the `docker` command:
 
-```bash
+```shell
 docker build -t my-jupyterlab .
 ```
 
 ## Checkout the solution ✔️
 
-Go in the `solution` folder to check the solution:
+Go in the [`solution` folder](https://github.com/MaastrichtU-IDS/get-started-with-docker/tree/main/solution) to check the solution:
 
+* `README.md` to run Virtuoso with `docker run` command
 * `docker-compose.yml` with root JupyterLab and Virtuoso
 * `Dockerfile` with root user and additional packages installed
+
+> Recreate the `data/jupyterlab` folder in `solution` to run the docker-compose there:
+>
+> ```shell
+> sudo mkdir -p data/jupyterlab
+> sudo chown -R 1000:1000 data/jupyterlab
+> ```
