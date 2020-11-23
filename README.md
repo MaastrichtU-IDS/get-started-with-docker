@@ -21,7 +21,7 @@ Prerequisites:
   * When defining a path, the dot `.` defines the current directory, it is usually used at the start of the path, e.g. `./data` for the data folder in the current directory)
   * N.B.: folder and directory usually means the same thing.
 
-## Table of Content
+## Table of Content 🧭
 
 * [Get the workshop files <g-emoji class="g-emoji" alias="inbox_tray" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e5.png">📥</g-emoji>](#get-the-workshop-files-)
 * [Task 1: Find and start a database container <g-emoji class="g-emoji" alias="mag_right" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f50e.png">🔎</g-emoji>](#task-1-find-and-start-a-database-container-)
