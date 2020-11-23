@@ -1,4 +1,4 @@
-# Get started with Docker 🐳
+# Get started with Docker containers 🐳
 
 A workshop to get started with Docker in an hour 🕐 (hopefully).
 
@@ -9,15 +9,17 @@ During this workshop you will:
 * Run the JupyterLab container as restricted or admin user
 * Customize an existing image by installing new packages and changing the user (JupyterLab)
 
-Pre-requisites:
+Prerequisites:
 
-* [Docker](https://docs.docker.com/get-docker/) and docker-compose installed
+* [Docker](https://docs.docker.com/get-docker/) installed
+  * If you use Windows 🏢, we recommend you to use Docker with [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+  * If you use Linux 🐧, you will need to make sure you have also [`docker-compose` installed](https://docs.docker.com/compose/install/)
 * Really basic knowledge of how to use the terminal:
-  * List files in current directory: `ls`
-  * Change directory: `cd subfolder`
-  * Find your current directory: `pwd`
+  * **L**i**s**t files in current directory: `ls`
+  * Find the **p**ath to the (current) **w**orking **d**irectory: `pwd`
+  * **C**hange **d**irectory: `cd subfolder` or `cd ../parent-folder`
   * When defining a path, the dot `.` defines the current directory, it is usually used at the start of the path, e.g. `./data` for the data folder in the current directory)
-  * Use 2 dots to go to the parent folder: `cd ..`
+  * N.B.: folder and directory usually means the same thing.
 
 ## Get the workshop files 📥
 
@@ -51,23 +53,23 @@ We will then use a Docker container:
 
 2. Various image will be found. Here is a few advices to pick the right Docker image for a service:
 
-    * Check for a recent image that seems to be kept up-to-date, with an active community, or company behind if possible
-    * Check the number of downloads to see how popular it is
+    * Check for a **recent image** that seems to be kept up-to-date, with an active community, or company behind if possible
+    * Check the number of **Pulls** (downloads) to see how popular it is
     * You can also check how the application is installed in the `Dockerfile` (when source code available)
-    * Note that currently most existing images are available on DockerHub, but things are changing (quay.io, ghcr.io...). Using an image from a different registry does not change anything else than the image name.
+    * Note that currently most existing images are available on DockerHub, but things are changing (quay.io, ghcr.io...). Thankfully, using an image from a different registry does not change anything else than the image name!
 
-3. 👨‍💻 Follow the instructions from [tenforce/virtuoso](https://hub.docker.com/r/tenforce/virtuoso/) to start the Virtuoso triplestore using the `docker run` command. You will just need to change the shared volume:
+3. 👩‍💻 Follow the instructions for the [tenforce/virtuoso](https://hub.docker.com/r/tenforce/virtuoso/) image (https://hub.docker.com/r/tenforce/virtuoso), to start the Virtuoso triplestore using the `docker run` command. You will just need to change the shared volume:
 
     * They defined `-v /my/path/to/the/virtuoso/db:/data`. Change it to the `data/virtuoso` folder in your current directory, the path on the left of the `:` is for your computer, the path on the right is where the volume is shared in the container.
 
     * To provide the current directory as shared volume with the docker container the variable to use is different for Windows:
-  * For Linux and Mac:
+  * For Linux 🐧 and Mac 🍎
     
       ```shell
   -v $(pwd)/data/virtuoso:/data
       ```
     
-      * For Windows, remove all the newlines with their extra `\`, and use:
+      * For Windows 🏢 (remove all the newlines with their extra `\` to have one line):
 
       ```powershell
   -v ${PWD}/data/virtuoso:/data
@@ -77,7 +79,7 @@ We will then use a Docker container:
 
 > You can also check how Virtuoso is installed in the image [Dockerfile](https://github.com/tenforce/docker-virtuoso/blob/master/Dockerfile)
 
-## Task 2: Start the container with docker-compose 📋
+## Task 2: Start the container with a docker-compose file 📋
 
 Open the `docker-compose.yml` file provided in the workshop folder with your favorite IDE (we recommend VisualStudio Code if you don't know which one to use)
 
@@ -95,7 +97,7 @@ Follow [tenforce/virtuoso](https://hub.docker.com/r/tenforce/virtuoso/) instruct
 >       - ./data/virtuoso:/data
 > ```
 
-👨‍💻 Start the containers defined in the `docker-compose.yml` file from your terminal:
+👩‍💻 Start the containers defined in the `docker-compose.yml` file from your terminal:
 
 ```shell
 docker-compose up
@@ -117,7 +119,7 @@ Stop the docker-compose running in your terminal by hitting the keys `ctrl + C`
 docker-compose up -d
 ```
 
-👨‍💻 Check the logs of the running containers:
+👩‍💻 Check the logs of the running containers:
 
 ```shell
 docker-compose logs
@@ -146,7 +148,7 @@ We will use a JupyterLab image with SPARQL libraries hosted on the [MaastrichU-I
       - JUPYTER_ENABLE_LAB=yes
 ```
 
-2. 👨‍💻 You will need to add:
+2. 👩‍💻 You will need to add:
 
     * The Jupyter notebooks port used by the image: `8888:8888` 
     * The shared volume on `./data/jupyterlab:/home/jovyan`
@@ -200,7 +202,7 @@ You can also run JupyterLab with the `root` user to have admin rights
 
 We will now change the `docker-compose.yml` to start JupyterLab with the root user.
 
-👨‍💻 Add the following parameters at the right place in the `docker-compose.yml`:
+👩‍💻 Add the following parameters at the right place in the `docker-compose.yml`:
 
 ```yaml
 services:
@@ -210,19 +212,19 @@ services:
       - GRANT_SUDO=yes
 ```
 
-👨‍💻 Restart JupyterLab and Virtuoso:
+👨‍💻 Restart JupyterLab and Virtuoso from the terminal:
 
 ```shell
 docker-compose up --force-recreate
 ```
 
-1. You should now be able to install anything in the JupyterLab container. Open a terminal in JupyterLab and try to update the packages: `apt update`  will fail due to lack of permission, use `sudo`
+1. You should now be able to install anything in the JupyterLab container. Open a terminal in the [JupyterLab web UI](http://localhost:8888/), and try to update the packages. Running `apt update`  will fail due to lack of permission, use `sudo`:
 
    ```shell
    sudo apt update
    ```
 
-2. Create again a **SPARQL notebook** in the [JupyterLab](http://localhost:8888) to query the [SPARQL endpoint](http://localhost:8890):
+2. Create again a **SPARQL notebook** in the [JupyterLab](http://localhost:8888) to check querying the [SPARQL endpoint](http://localhost:8890) works:
 
    ```SPARQL
    %endpoint http://db:8890/sparql
@@ -246,7 +248,7 @@ It will start from the JupyterLab image we were previously using:
 FROM ghcr.io/maastrichtu-ids/jupyterlab-on-openshift
 ```
 
-👨‍💻 You will need to:
+👩‍💻 In the `Dockerfile`, you will need to:
 
 1. Change the user to `root` (to have admin rights by default)
 
@@ -262,7 +264,7 @@ services:
     build: .
 ```
 
-👨‍💻 Build and restart JupyterLab:
+👨‍💻 Build and restart JupyterLab from the terminal:
 
 ```shell
 docker-compose up --build
@@ -274,15 +276,7 @@ You can also build the image using the `docker` command:
 docker build -t my-jupyterlab .
 ```
 
-## Checkout the solution ✔️
-
-Go in the [`solution` folder](https://github.com/MaastrichtU-IDS/get-started-with-docker/tree/main/solution) to check the solution:
-
-* `README.md` to run Virtuoso with `docker run` command, and solution guidelines
-* `docker-compose.yml` with root JupyterLab and Virtuoso
-* `Dockerfile` with root user and additional packages installed
-
-## Login to Docker Registries 🔑
+## Task 6: Login to Container Registries 🔑
 
 It is recommended to login to existing Container Registries if you have a user on their platform (e.g. DockerHub, GitHub), it will enable higher download limitations and rates! 🏆
 
@@ -290,28 +284,76 @@ It is recommended to login to existing Container Registries if you have a user o
 
 1. Get a [DockerHub](https://hub.docker.com/) account at https://hub.docker.com (you most probably already have one if you installed Docker Desktop)
 
-2. Run in your terminal:
+2. 👩‍💻 Run in your terminal:
 
 ```bash
 docker login
 ```
 
-3. Provide DockerHub username and password
+3. Provide your DockerHub username and password.
 
 ### GitHub Container Registry
 
 Use your existing [GitHub](https://github.com) account if you have one:
 
-1. Create a **Personal Access Token** for GitHub packages at https://github.com/settings/tokens/new
+1. Create a **Personal Access Token** for GitHub packages at **https://github.com/settings/tokens/new**
 1. Provide a meaningful description for the token, and enable the following scopes when creating the token:
     * `read:packages`: download container images from GitHub Container Registry
     * `write:packages`: publish container images to GitHub Container Registry
     * `delete:packages`: delete specified versions of private or public container images from GitHub Container Registry
-1. You might want to store this token provided by GitHub in a safe place as you will not be able to retrieve it later (you can still delete it an create a new easily)
-1. Login to the GitHub Container Registry in your terminal (change `USERNAME` and `ACCESS_TOKEN` to yours):
+1. You might want to store this token in a safe place, as you will not be able to retrieve it later (you can still delete it, and create a new token easily)
+1. 👨‍💻 Login to the GitHub Container Registry in your terminal (change `USERNAME` and `ACCESS_TOKEN` to yours):
 
 ```bash
 echo "ACCESS_TOKEN" | docker login ghcr.io -u USERNAME --password-stdin
 ```
 
 > See the [official GitHub documentation](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages).
+
+## Bonus: Publish your image 📢
+
+Once you built a Docker image you might want to publish it to pull it and re-use it easily later.
+
+### Publish to GitHub Container Registry
+
+The [GitHub Container Registry](https://docs.github.com/en/free-pro-team@latest/packages/getting-started-with-github-container-registry) is still in beta, but will be free for public images. And it enables you to store your images at the same place you store your code.
+
+Publish to your GitHub user registry:
+
+```bash
+docker build -t ghcr.io/github-username/jupyterlab:latest .
+docker push ghcr.io/github-username/jupyterlab:latest
+```
+
+Or to the [MaastrichtU-IDS GitHub Container Registry](https://github.com/orgs/MaastrichtU-IDS/packages):
+
+```bash
+docker build -t ghcr.io/maastrichtu-ids/jupyterlab-on-openshift:latest .
+docker push ghcr.io/maastrichtu-ids/jupyterlab-on-openshift:latest
+```
+
+### Publish to DockerHub
+
+[DockerHub](https://hub.docker.com/) is still the most popular and mature Container Registry, and the new rates should not impact a regular user.
+
+First create the repository on [DockerHub](https://hub.docker.com/) (attached to your user or an [organization](https://hub.docker.com/orgs/umids/repositories)), then build and push the image:
+
+```bash
+docker build -t dockerhub-username/jupyterlab:latest .
+docker push dockerhub-username/jupyterlab:latest
+```
+
+> You can also change the name of an existing image:
+>
+> ```bash
+> docker build -t my-jupyterlab .
+> docker tag my-jupyterlab ghcr.io/github-username/jupyterlab:latest
+> ```
+
+## Checkout the solution ✔️
+
+Go in the [`solution` folder](https://github.com/MaastrichtU-IDS/get-started-with-docker/tree/main/solution) to check the solution:
+
+* `README.md` to run Virtuoso with `docker run` command, and solution guidelines
+* `docker-compose.yml` with root JupyterLab and Virtuoso
+* `Dockerfile` with root user and additional packages installed
