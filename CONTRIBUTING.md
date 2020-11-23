@@ -20,6 +20,20 @@ git checkout -b my-branch
 ```
 
 3. See how to run the program in development at https://github.com/MaastrichtU-IDS/get-started-with-docker
+4. Re-generate the Table of Content:
+
+Download the TOC generator
+
+```bash
+wget https://raw.githubusercontent.com/ekalinin/github-markdown-toc/master/gh-md-toc
+chmod a+x gh-md-toc
+```
+
+Generate the Table of Content:
+
+```bash
+./gh-md-toc README.md
+```
 
 ## Pull Request process
 
