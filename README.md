@@ -66,13 +66,13 @@ We will then use a Docker container:
   * For Linux 🐧 and Mac 🍎
     
       ```shell
-  -v $(pwd)/data/virtuoso:/data
+    -v $(pwd)/data/virtuoso:/data
       ```
     
       * For Windows 🏢 (remove all the newlines with their extra `\` to have one line):
 
       ```powershell
-  -v ${PWD}/data/virtuoso:/data
+    -v ${PWD}/data/virtuoso:/data
       ```
 
 👨‍💻 Access the Virtuoso triplestore on http://localhost:8890 (admin login: `dba` / `dba`)
@@ -111,7 +111,7 @@ docker ps
 
 > Try to access the Virtuoso triplestore running on http://localhost:8890
 
-Stop the docker-compose running in your terminal by hitting the keys `ctrl + C`
+Stop the docker-compose running in your terminal by hitting the keys `ctrl + c`
 
 👨‍💻 Run the containers detached from your terminal (in the background):
 
@@ -150,14 +150,14 @@ We will use a JupyterLab image with SPARQL libraries hosted on the [MaastrichU-I
 
 2. 👩‍💻 You will need to add:
 
-    * The Jupyter notebooks port used by the image: `8888:8888` 
+    * Mapping from the JupyterLab container port `8888` to your computer port `8080`. Use `8080:8888`
     * The shared volume on `./data/jupyterlab:/home/jovyan`
 
 > ⚠️ The official Jupyter Docker image uses the `jovyan` user by default which does not have admin rights (`sudo`). This can cause issues when writing to the shared volumes, to fix it you can change the owner of the folder or start JupyterLab as root user.
 
-3. Create the folder with the right permissions before starting the containers:
+3. Create the folder with the right permissions before starting the containers!
 
-You need to create the folder you will use to store JupyterLab data, and define the right permissions, before running the JupyterLab container:
+You need to create the folder you will use to store JupyterLab data, and define the right permissions, before running the JupyterLab container. Here is the command for Linux and Mac:
 
 ```shell
 sudo mkdir -p data/jupyterlab
@@ -172,11 +172,13 @@ docker-compose up
 
 Access JupyterLab on http://localhost:8888 (use `dba` as password) and Virtuoso on http://localhost:8890
 
-> ⚠️ If you are still experiencing issue with the folder permissions (e.g. impossible to create or save a file in JupyterLab) remove the volume from JupyterLab. Docker will use an ephemeral storage that disappear when the container is deleted.
+> ⚠️ If you are experiencing issue with the folder permissions: **remove the volume of the JupyterLab container in the `docker-compose.yml`**
+>
+> Docker will use an ephemeral storage that disappear when the container is deleted.
 
 5. Query the Virtuoso database from the JupyterLab container
    
-   * Create a **SPARQL notebook** in JupyterLab
+   * Create a new **SPARQL Notebook** in JupyterLab
    
    * Create a cell to run a SPARQL query on the Virtuoso triplestore SPARQL endpoint:
    
@@ -197,7 +199,7 @@ Access JupyterLab on http://localhost:8888 (use `dba` as password) and Virtuoso 
 
 You can also run JupyterLab with the `root` user to have admin rights
 
-> 👨‍💻 Stop the previously ran Jupyterlab container (`ctrl + C` or `docker-compose down`)
+> 👨‍💻 Stop the previously ran Jupyterlab container (`ctrl + c` or `docker-compose down`)
 >
 
 We will now change the `docker-compose.yml` to start JupyterLab with the root user.
@@ -312,7 +314,7 @@ echo "ACCESS_TOKEN" | docker login ghcr.io -u USERNAME --password-stdin
 
 ## Bonus: Publish your image 📢
 
-Once you built a Docker image you might want to publish it to pull it and re-use it easily later.
+Once you built a Docker image you might want to publish it to pull it, and re-use it easily later.
 
 ### Publish to GitHub Container Registry
 

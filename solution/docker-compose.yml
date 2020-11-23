@@ -21,7 +21,7 @@ services:
     build: .
     user: root
     ports:
-      - 8888:8888
+      - 8080:8888
     volumes:
       - ./data/jupyterlab:/home/jovyan
     environment:
