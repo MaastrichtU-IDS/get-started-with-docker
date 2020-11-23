@@ -1,13 +1,17 @@
-A workshop to get started with Docker in an hour (hopefully), after during this workshop you will:
+# Get started with Docker 🐳
 
-* Find and run a Docker image for a database service (a Virtuoso triplestore)
+A workshop to get started with Docker in an hour 🕐 (hopefully).
+
+During this workshop you will:
+
+* Find and run a Docker image for a database service (a Virtuoso triplestore for RDF data)
 * Define a `docker-compose.yml` file to run a JupyterLab container alongside the database
 * Run the JupyterLab container as restricted or admin user
 * Customize an existing image by installing new packages and changing the user (JupyterLab)
 
 Pre-requisites:
 
-* Docker and docker-compose installed
+* [Docker](https://docs.docker.com/get-docker/) and docker-compose installed
 * Really basic knowledge of how to use the terminal:
   * List files in current directory: `ls`
   * Change directory: `cd subfolder`
@@ -20,7 +24,7 @@ Pre-requisites:
 Use `git` to clone the repository 📥
 
 1. Open your terminal
-2. Go to the directory where you want to store the workshop folder
+2. Go to the directory where you want to store the workshop folder (using `cd my-folder/`)
 3. Run:
 
 ```shell
