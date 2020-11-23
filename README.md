@@ -17,7 +17,11 @@ Pre-requisites:
 
 ## Get the workshop files
 
-Use `git` to clone the repository, open your terminal, go to the directory where you want to store the workshop folder, and run:
+Use `git` to clone the repository 📥
+
+1. Open your terminal
+2. Go to the directory where you want to store the workshop folder
+3. Run:
 
 ```bash
 git clone https://github.com/MaastrichtU-IDS/get-started-with-docker
@@ -25,45 +29,46 @@ git clone https://github.com/MaastrichtU-IDS/get-started-with-docker
 
 > If you don't have `git` installed you can also [download the workshop as a `.zip` file](https://github.com/MaastrichtU-IDS/get-started-with-docker/archive/master.zip) and unzip it.
 
-Go the workshop folder in your terminal:
+4. **Go the workshop folder in your terminal**:
 
 ```bash
 cd get-started-with-docker
 ```
 
-> For the whole workshop we assume you are running the terminal commands from this repository.
+> For the whole workshop we assume you are running the terminal commands from this directory.
 
 ## Task 1: Find and start a database container
 
-We are going to start the [OpenLink Virtuoso database](http://vos.openlinksw.com/owiki/wiki/VOS) (a triplestore for RDF data) using Docker.
+We want to start the [OpenLink Virtuoso database](http://vos.openlinksw.com/owiki/wiki/VOS) (a triplestore for RDF data) without loosing time installing all the required packages and setting up the configuration. We will then use a Docker container.
 
-👨‍💻 Search for [**"virtuoso docker" on Google**](https://www.google.com/search?q=virtuoso+docker) (or your favorite search engine).
+1. 👨‍💻 Search for [**"virtuoso docker" on Google**](https://www.google.com/search?q=virtuoso+docker) (or your favorite search engine).
 
-Various image should be found. Here is a few advices to pick the right existing Docker image for a service:
+2. Various image should be found. Here is a few advices to pick the right existing Docker image for a service:
 
-* Check for recent image that seems to be kept up-to-date (with an active community or company behind if possible)
-* Check the number of downloads to see how popular it is
-* You can also check how the application is installed in the [Dockerfile](https://github.com/tenforce/docker-virtuoso/blob/master/Dockerfile) (when source code available)
-* Note that currently most existing images are available on DockerHub, but things are changing. Using an image from a different registry does not change anything else than the start of the Image name (quay.io, ghcr.io...)
-  * It is recommended to login to the Container Registries if you have a user (DockerHub, GitHub), it will award you greater download limitations.
+    * Check for recent image that seems to be kept up-to-date (with an active community or company behind if possible)
+    * Check the number of downloads to see how popular it is
+    * You can also check how the application is installed in the [Dockerfile](https://github.com/tenforce/docker-virtuoso/blob/master/Dockerfile) (when source code available)
+    * Note that currently most existing images are available on DockerHub, but things are changing. Using an image from a different registry does not change anything else than the start of the Image name (quay.io, ghcr.io...)
+      * It is recommended to login to the Container Registries if you have a user (DockerHub, GitHub), it will award you greater download limitations.
 
-> 👨‍💻 Follow the instructions from [tenforce/virtuoso](https://hub.docker.com/r/tenforce/virtuoso/) to start the Virtuoso triplestore using the `docker run` command
+3. 👨‍💻 Follow the instructions from [tenforce/virtuoso](https://hub.docker.com/r/tenforce/virtuoso/) to start the Virtuoso triplestore using the `docker run` command. You will just need to change the shared volume:
 
-You will just need to change the shared volume, they defined `-v /my/path/to/the/virtuoso/db:/data \`
+    * They defined `-v /my/path/to/the/virtuoso/db:/data \`
 
-Change it to a folder in your current directory, the path on the left of the `:` is for your computer, the path on the right is where the volume is shared in the container.
+    * Change it to the `data/virtuoso` folder in your current directory, the path on the left of the `:` is for your computer, the path on the right is where the volume is shared in the container.
 
-* For Linux and Mac use (use `\` at the end if you are using a command defined on multiple lines):
+    * To provide the current directory as shared volume with the docker container the variable to use is different for Windows:
+      * For Linux and Mac use (use `\` at the end if you are using a command defined on multiple lines):
 
-  ```bash
-  -v $(pwd)/data/virtuoso:/data \
-  ```
+      ```bash
+      -v $(pwd)/data/virtuoso:/data \
+      ```
 
-* For Windows, remove all the newlines with their extra `\`, and use:
+      * For Windows, remove all the newlines with their extra `\`, and use:
 
-  ```powershell
-  -v ${PWD}/data/virtuoso:/data
-  ```
+      ```powershell
+      -v ${PWD}/data/virtuoso:/data
+      ```
 
 👨‍💻 Access the Virtuoso triplestore on http://localhost:8890
 
@@ -153,7 +158,7 @@ mkdir -p data/jupyterlab
 sudo chown -R 1000:1000 data/jupyterlab
 ```
 
-3. 👨‍💻 Start JupyterLab and Virtuoso:
+3. Start JupyterLab and Virtuoso:
 
 ```bash
 docker-compose up
