@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+
+  virtuoso:
+    container_name: virtuoso
+    image: tenforce/virtuoso:latest
+    environment:
+      DBA_PASSWORD: dba
+      SPARQL_UPDATE: "true"
+      DEFAULT_GRAPH: https://w3id.org/um/ids/graph
+    volumes:
+      - ./data/virtuoso:/data
+    ports:
+      - 8890:8890
+      - 1111:1111
+
+  jupyterlab:
+    container_name: jupyterlab
+    image: ghcr.io/maastrichtu-ids/jupyterlab-on-openshift
+    # build: .
+    user: root
+    ports:
+      - 8888:8888
+    volumes:
+      - ./data/jupyterlab:/home/jovyan
+    environment:
+      - JUPYTER_TOKEN=password
+      - JUPYTER_ENABLE_LAB=yes
+      - GRANT_SUDO=yes
