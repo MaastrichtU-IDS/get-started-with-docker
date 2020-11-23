@@ -21,6 +21,24 @@ Prerequisites:
   * When defining a path, the dot `.` defines the current directory, it is usually used at the start of the path, e.g. `./data` for the data folder in the current directory)
   * N.B.: folder and directory usually means the same thing.
 
+## Table of content
+
+   * [Get started with Docker containers](#get-started-with-docker-containers-)
+      * [Get the workshop files](#get-the-workshop-files-)
+      * [Task 1: Find and start a database container](#task-1-find-and-start-a-database-container-)
+      * [Task 2: Start the container with a docker-compose file](#task-2-start-the-container-with-a-docker-compose-file-)
+      * [Task 3: Add a JupyterLab to the docker-compose](#task-3-add-a-jupyterlab-to-the-docker-compose-)
+      * [Task 4: Run JupyterLab with admin rights](#task-4-run-jupyterlab-with-admin-rights-)
+      * [Task 5: Customize the Dockerfile](#task-5-customize-the-dockerfile-)
+      * [Task 6: Login to Container Registries](#task-6-login-to-container-registries-)
+         * [DockerHub](#dockerhub)
+         * [GitHub Container Registry](#github-container-registry)
+      * [Bonus: Publish your image](#bonus-publish-your-image-)
+         * [Publish to GitHub Container Registry](#publish-to-github-container-registry)
+         * [Publish to DockerHub](#publish-to-dockerhub)
+         * [Use automated workflows](#use-automated-workflows)
+      * [Checkout the solution](#checkout-the-solution-)
+
 ## Get the workshop files 📥
 
 Use `git` to clone the repository
