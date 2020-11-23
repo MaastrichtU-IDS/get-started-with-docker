@@ -19,9 +19,9 @@ Pre-requisites:
   * When defining a path, the dot `.` defines the current directory, it is usually used at the start of the path, e.g. `./data` for the data folder in the current directory)
   * Use 2 dots to go to the parent folder: `cd ..`
 
-## Get the workshop files
+## Get the workshop files 📥
 
-Use `git` to clone the repository 📥
+Use `git` to clone the repository
 
 1. Open your terminal
 2. Go to the directory where you want to store the workshop folder (using `cd my-folder/`)
@@ -41,7 +41,7 @@ cd get-started-with-docker
 
 > For the whole workshop we assume you are running the terminal commands from this directory.
 
-## Task 1: Find and start a database container
+## Task 1: Find and start a database container 🔎
 
 We want to start the [OpenLink Virtuoso database](http://vos.openlinksw.com/owiki/wiki/VOS) (a triplestore for RDF data) without loosing time installing all the required packages and setting up the configuration. 
 
@@ -55,7 +55,6 @@ We will then use a Docker container:
     * Check the number of downloads to see how popular it is
     * You can also check how the application is installed in the `Dockerfile` (when source code available)
     * Note that currently most existing images are available on DockerHub, but things are changing. Using an image from a different registry does not change anything else than the start of the Image name (quay.io, ghcr.io...)
-      * It is recommended to login to the Container Registries if you have a user (DockerHub, GitHub), it will award you greater download limitations.
 
 3. 👨‍💻 Follow the instructions from [tenforce/virtuoso](https://hub.docker.com/r/tenforce/virtuoso/) to start the Virtuoso triplestore using the `docker run` command. You will just need to change the shared volume:
 
@@ -80,7 +79,7 @@ We will then use a Docker container:
 
 > You can also check how Virtuoso is installed in the image [Dockerfile](https://github.com/tenforce/docker-virtuoso/blob/master/Dockerfile)
 
-## Task 2: Start the container with docker-compose
+## Task 2: Start the container with docker-compose 📋
 
 Open the `docker-compose.yml` file provided in the workshop folder with your favorite IDE (we recommend VisualStudio Code if you don't know which one to use)
 
@@ -132,7 +131,7 @@ docker-compose logs
 docker-compose down
 ```
 
-## Task 3: Add a JupyterLab to the docker-compose
+## Task 3: Add a JupyterLab to the docker-compose 🔬
 
 We will **add a JupyterLab to the docker-compose**, and use it to query the Virtuoso triplestore.
 
@@ -194,9 +193,9 @@ Access JupyterLab on http://localhost:8888 (use `dba` as password) and Virtuoso 
 >
 > 💡 This allows you to easily deploy a public application on top of a hidden database.
 
-## Task 4: Run JupyterLab with admin rights
+## Task 4: Run JupyterLab with admin rights 🔓
 
-You can also run JupyterLab with the `root` user to have admin rights 🔑
+You can also run JupyterLab with the `root` user to have admin rights
 
 > 👨‍💻 Stop the previously ran Jupyterlab container (`ctrl + C` or `docker-compose down`)
 >
@@ -235,9 +234,9 @@ docker-compose up --force-recreate
    ```
 
 
-## Task 5: Customize the Dockerfile
+## Task 5: Customize the Dockerfile 📦
 
-We will improve the `Dockerfile` of the JupyterLab container to have a custom image with additional packages installed 📦
+We will improve the `Dockerfile` of the JupyterLab container to have a custom image with additional packages installed.
 
 > See the [GitHub repository for the JupyterLab image](https://github.com/MaastrichtU-IDS/jupyterlab-on-openshift/).
 
@@ -281,13 +280,40 @@ docker build -t my-jupyterlab .
 
 Go in the [`solution` folder](https://github.com/MaastrichtU-IDS/get-started-with-docker/tree/main/solution) to check the solution:
 
-* `README.md` to run Virtuoso with `docker run` command
+* `README.md` to run Virtuoso with `docker run` command, and solution guidelines
 * `docker-compose.yml` with root JupyterLab and Virtuoso
 * `Dockerfile` with root user and additional packages installed
 
-> Recreate the `data/jupyterlab` folder in `solution` to run the docker-compose there:
->
-> ```shell
-> sudo mkdir -p data/jupyterlab
-> sudo chown -R 1000:1000 data/jupyterlab
-> ```
+## Login to Docker Registries 🔑
+
+It is recommended to login to existing Container Registries if you have a user on their platform (e.g. DockerHub, GitHub), it will enable higher download limitations and rates! 🏆
+
+### DockerHub
+
+1. Get a [DockerHub](https://hub.docker.com/) account at https://hub.docker.com (you most probably already have one if you installed Docker Desktop)
+
+2. Run in your terminal:
+
+```bash
+docker login
+```
+
+3. Provide DockerHub username and password
+
+### GitHub Container Registry
+
+Use your existing [GitHub](https://github.com) account if you have one:
+
+1. Create a **Personal Access Token** for GitHub packages at https://github.com/settings/tokens/new
+1. Provide a meaningful description for the token, and enable the following scopes when creating the token:
+    * `read:packages`: download container images from GitHub Container Registry
+    * `write:packages`: publish container images to GitHub Container Registry
+    * `delete:packages`: delete specified versions of private or public container images from GitHub Container Registry
+1. You might want to store this token provided by GitHub in a safe place as you will not be able to retrieve it later (you can still delete it an create a new easily)
+1. Login to the GitHub Container Registry in your terminal (change `USERNAME` and `ACCESS_TOKEN` to yours):
+
+```bash
+echo "ACCESS_TOKEN" | docker login ghcr.io -u USERNAME --password-stdin
+```
+
+> See the [official GitHub documentation](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages).
