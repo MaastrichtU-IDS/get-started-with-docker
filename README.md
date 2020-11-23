@@ -352,10 +352,28 @@ docker push dockerhub-username/jupyterlab:latest
 > docker tag my-jupyterlab ghcr.io/github-username/jupyterlab:latest
 > ```
 
+### Use automated workflows
+
+You can automate the building and publication of Docker images using GitHub Actions workflows 🔄
+
+👀 Check the [`.github/workflows/publish-docker.yml` file](https://github.com/MaastrichtU-IDS/get-started-with-docker/blob/main/.github/workflows/publish-docker.yml) to see an example of a workflow to publish an image to the GitHub Container Registry.
+
+👩‍💻 You just need to change the `IMAGE_NAME`, and use it in your GitHub repository to publish a Docker image for your application automatically! It will build from a `Dockerfile` at the root of the repository.
+
+The workflow can be easily configured to:
+
+* publish a new image to the `latest` tag at each push to the main branch
+* publish an image to a new tag if a release is pushed on GitHub (using the git tag)
+  * e.g. `v0.0.1` published as image `0.0.1`
+
+> If you publish your image on DockerHub, you can use [automated build on DockerHub](https://docs.docker.com/docker-hub/builds/).
+
+> GitHub Actions is still currently evolving quickly, feel free to check if they recommend new way to build and publish containers 🚀
+
 ## Checkout the solution ✔️
 
 Go in the [`solution` folder](https://github.com/MaastrichtU-IDS/get-started-with-docker/tree/main/solution) to check the solution:
 
-* `README.md` to run Virtuoso with `docker run` command, and solution guidelines
-* `docker-compose.yml` with root JupyterLab and Virtuoso
+* `README.md` for the general solution guidelines, and to run Virtuoso with the `docker run` command
 * `Dockerfile` with root user and additional packages installed
+* `docker-compose.yml` to build and run custom JupyterLab and Virtuoso database

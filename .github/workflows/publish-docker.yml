@@ -3,16 +3,18 @@ name: Publish Docker image
 # https://github.com/orgs/MaastrichtU-IDS/packages 
 on:
   workflow_dispatch:
+  ## Enable automated build by uncommenting following lines:
   # push:
   #   # Publish `master` as Docker `latest` image.
   #   branches:
   #     - master
-  #   # Publish `v1.2.3` tags as releases.
+  #   # Publish `v1.2.3` tags as release `1.2.3`.
   #   tags:
   #     - v*
 
+# TODO: Change the image name to yours
 env:
-  IMAGE_NAME: openpredict-api
+  IMAGE_NAME: jupyterlab
 
 jobs:
   # Run tests.
