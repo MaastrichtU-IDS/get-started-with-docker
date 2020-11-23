@@ -1,9 +1,16 @@
 name: Publish Docker image
-# To MaastrichtU-IDS GitHub Container Registry
-# https://github.com/orgs/MaastrichtU-IDS/packages 
+
+# To use this workflow:
+# * Add secrets CONTAINER_REGISTRY_GITHUB_TOKEN to your GitHub repository
+# * Change the IMAGE_NAME to yours
+# * Enable automated build if you wish
+
+env:
+  IMAGE_NAME: jupyterlab
+
 on:
   workflow_dispatch:
-  ## Enable automated build by uncommenting following lines:
+  ## Enable automated build by uncommenting the following lines:
   # push:
   #   # Publish `master` as Docker `latest` image.
   #   branches:
@@ -12,13 +19,8 @@ on:
   #   tags:
   #     - v*
 
-# TODO: Change the image name to yours
-env:
-  IMAGE_NAME: jupyterlab
-
 jobs:
-  # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
+  # Test docker build before publishing
   test:
     runs-on: ubuntu-latest
 
@@ -49,7 +51,6 @@ jobs:
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CONTAINER_REGISTRY_GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
-        # TODO: add GitHub secrets CONTAINER_REGISTRY_GITHUB_TOKEN 
 
       - name: Push image to GitHub Container Registry
         run: |
