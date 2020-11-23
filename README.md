@@ -36,7 +36,7 @@ Prerequisites:
     * [Publish to GitHub Container Registry](#publish-to-github-container-registry)
     * [Publish to DockerHub](#publish-to-dockerhub)
     * [Use automated workflows](#use-automated-workflows)
-* [Checkout the solution <g-emoji class="g-emoji" alias="heavy_check_mark" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png">✔️</g-emoji>](#checkout-the-solution-)
+* [Checkout the solution <g-emoji class="g-emoji" alias="heavy_check_mark" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png">✔️</g-emoji>](#use-automated-workflows)
 
 ## Get the workshop files 📥
 
@@ -77,20 +77,22 @@ We will then use a Docker container:
 
 3. 👩‍💻 Follow the instructions for the [tenforce/virtuoso](https://hub.docker.com/r/tenforce/virtuoso/) image (https://hub.docker.com/r/tenforce/virtuoso), to start the Virtuoso triplestore using the `docker run` command. You will just need to change the shared volume:
 
-    * They defined `-v /my/path/to/the/virtuoso/db:/data`. Change it to the `data/virtuoso` folder in your current directory, the path on the left of the `:` is for your computer, the path on the right is where the volume is shared in the container.
 
-    * To provide the current directory as shared volume with the docker container the variable to use is different for Windows:
-  * For Linux 🐧 and Mac 🍎
-    
-    ```shell
-    -v $(pwd)/data/virtuoso:/data
-    ```
-    
-      * For Windows 🏢 (remove all the newlines with their extra `\` to have one line):
+* They defined `-v /my/path/to/the/virtuoso/db:/data`. Change it to the `data/virtuoso` folder in your current directory, the path on the left of the `:` is for your computer, the path on the right is where the volume is shared in the container.
 
-    ```powershell
-    -v ${PWD}/data/virtuoso:/data
-    ```
+* To provide the current directory as shared volume with the docker container the variable to use is different for Windows:
+    
+    * For Linux 🐧 and Mac 🍎
+    
+      ```bash
+      -v $(pwd)/data/virtuoso:/data
+      ```
+    
+    * For Windows 🏢 (remove all the newlines with their extra `\` to have one line):
+    
+      ```powershell
+      -v ${PWD}/data/virtuoso:/data
+      ```
 
 👨‍💻 Access the Virtuoso triplestore on http://localhost:8890 (admin login: `dba` / `dba`)
 
