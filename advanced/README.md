@@ -1,13 +1,8 @@
 ## Advanced task 3: Add official JupyterLab to the docker-compose 🔭
 
-We want to run a JupyterLab to query our Virtuoso triplestore. 
+For this advanced workshop we will use a JupyterLab image built using the official [Jupyter/docker-stacks](https://github.com/jupyter/docker-stacks). It is using the `jovyan` user to be compatible with some container orchestrator security policies (such as OpenShift)
 
-* We could try to install locally the [IJava kernel](https://github.com/SpencerPark/IJava) and the [SPARQL kernel](https://github.com/paulovn/sparql-kernel), but it will take more time and will be prone to installation errors and conflicts ❌ (We already tried with our students in the bachelor program!)
-* The easiest would be to start a JupyterLab Docker container with the 2 kernels pre-installed ✔️
-
-🍀 Luckily there is already a Docker image with all those kernels installed! 
-
-The image is hosted in the [GitHub Container Registry](https://github.com/orgs/MaastrichtU-IDS/packages/container/package/jupyterlab-on-openshift), and is defined in this GitHub repository: https://github.com/MaastrichtU-IDS/jupyterlab-on-openshift
+The image is hosted in the [GitHub Container Registry](https://github.com/orgs/MaastrichtU-IDS/packages/container/package/jupyterlab-on-openshift), and is defined in this GitHub repository: https://github.com/MaastrichtU-IDS/jupyterlab-on-openshit
 
 1. 👩‍💻 Look into the JupyterLab Docker image documentation to find out how to deploy it with `docker-compose`
 

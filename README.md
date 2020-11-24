@@ -168,7 +168,7 @@ We want to run a JupyterLab to query our Virtuoso triplestore.
 
 The image is hosted in the [GitHub Container Registry](https://github.com/users/vemonet/packages/container/package/jupyterlab), and is defined in this GitHub repository: https://github.com/vemonet/Jupyterlab
 
-> If you are already comfortable with Docker, feel free to try the advanced workshop using the official Jupyter Docker image. This workshop adds a new dimension to Docker deployment with managing files permissions and owners.
+> If you are already comfortable with Docker, feel free to [try the advanced workshop using the official Jupyter Docker image](https://github.com/MaastrichtU-IDS/get-started-with-docker/tree/main/advanced). This workshop adds a new dimension to Docker deployment with managing files permissions and owners.
 
 1. 👩‍💻 Look into the JupyterLab Docker image documentation to find out how to deploy it with `docker-compose`
 
@@ -218,7 +218,7 @@ We will improve the `Dockerfile` of the JupyterLab container to build a custom i
 
 > See the [GitHub repository for the JupyterLab image](https://github.com/vemonet/jupyterlab/).
 
-Use the `Dockerfile` provided in the workshop folder to define your image.
+Open the `Dockerfile` provided in the workshop folder to define your image.
 
 It will start from the JupyterLab image we were previously using:
 
@@ -226,10 +226,9 @@ It will start from the JupyterLab image we were previously using:
 FROM ghcr.io/vemonet/jupyterlab
 ```
 
-👩‍💻 In the `Dockerfile`, you will install the python package `rdflib` with `pip install` (💡 bonus: you can use the `requirements.txt` file to install the `rdflib` package in the container)
+👩‍💻 Install the python package `rdflib` with `pip install` in the `Dockerfile` (💡 bonus: you can also use the `requirements.txt` file to install the `rdflib` package in the container)
 
-
-3. Go in the `docker-compose.yml` to build the container from the local `Dockerfile`, instead of using an existing image:
+👩‍💻 Change the `docker-compose.yml` to build the container from the local `Dockerfile`, instead of using an existing image:
 
 ```yaml
 services:
