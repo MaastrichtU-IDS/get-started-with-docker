@@ -2,7 +2,7 @@
 
 A workshop to get started with Docker in an hour 🕐 (hopefully)!
 
-During this workshop you will:
+During this workshop, you will:
 
 * Find and run a Docker image for a database service (a Virtuoso triplestore for RDF data)
 * Define a `docker-compose.yml` file to run a JupyterLab container alongside the database
@@ -16,15 +16,15 @@ Prerequisites:
   * If you use Windows 🏢, we recommend you to use Docker with [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
   * If you use Linux 🐧, you will need to make sure you have also [`docker-compose` installed](https://docs.docker.com/compose/install/)
   
-* Really basic knowledge of how to navigate in the terminal ⌨️
+* Fundamental knowledge of how to navigate in the terminal ⌨️
   1. **L**i**s**t files in current directory: `ls`
   2. Find the **P**ath to the (current) **W**orking **D**irectory: `pwd`
   3. **C**hange **D**irectory: `cd subfolder` or `cd ../parent-folder`
-  4. Use the `tab` key in your terminal to get recommendations for potential command arguments (later [install ZSH](https://ohmyz.sh/) for a better experience in the terminal)
+  4. Use the `tab` key in your terminal to get recommendations for potential command arguments (later [install ZSH](https://ohmyz.sh/) for a better experience in the computer terminal)
 
-  > When defining a path, the dot `.` defines the current directory, it is usually used at the start of the path, e.g. `./data` for the data folder in the current directory)
+  > When defining a path, the dot `.` represents the current directory, it is usually used at the start of the path, e.g. `./data` for the data folder in the current directory)
   >
-  > N.B.: folder and directory usually means the same thing.
+  > N.B.: folder and directory usually mean the same thing.
 
 ## Table of Content 🧭
 
@@ -44,7 +44,7 @@ Prerequisites:
 
 ## Get the workshop files 📥
 
-Use `git` to clone the repository
+Use `git` to clone the repository.
 
 1. Open your terminal ⌨️
 2. Go to the directory where you want to store the workshop folder (using `cd my-folder/`)
@@ -72,21 +72,21 @@ We want to start the [OpenLink Virtuoso database](http://vos.openlinksw.com/owik
 
 We will then use a Docker container:
 
-1. 🔎 Search for [**"virtuoso docker" on Google**](https://www.google.com/search?q=virtuoso+docker) (or your favorite search engine).
+1. 🔎 Search for [**"virtuoso docker" on Google**](https://www.google.com/search?q=virtuoso+docker) (or your favourite search engine).
 
-2. Various image will be found. Here is a few advices to pick the right Docker image for a service:
+2. Different Docker images will be found. Here are a few bits of advice to pick the right Docker image for a service:
 
     * Check for a **recent image** that seems to be kept up-to-date, with an active community, or company behind if possible
     * Check the number of **Pulls** (downloads) to see how popular it is
     * You can also check how the application is installed in the `Dockerfile` (when source code available)
-    * Note that currently most existing images are available on DockerHub, but things are changing (quay.io, ghcr.io...). Thankfully, using an image from a different registry does not change anything else than the image name!
+    * Note that currently, most existing images are available on DockerHub, but things are changing (quay.io, ghcr.io...). Thankfully, using an image from a different registry does not change anything else than the image name!
 
-3. 👩‍💻 Follow the instructions for the [tenforce/virtuoso](https://hub.docker.com/r/tenforce/virtuoso/) image (https://hub.docker.com/r/tenforce/virtuoso), to start the Virtuoso triplestore using the `docker run` command. You will just need to change the shared volume:
+3. 👩‍💻 Follow the instructions for the [tenforce/virtuoso](https://hub.docker.com/r/tenforce/virtuoso/) image (https://hub.docker.com/r/tenforce/virtuoso), to start the Virtuoso triplestore using the `docker run` command. You will only need to change the shared volume:
 
 
 * They defined `-v /my/path/to/the/virtuoso/db:/data`. Change it to the `data/virtuoso` folder in your current directory, the path on the left of the `:` is for your computer, the path on the right is where the volume is shared in the container.
 
-* To provide the current directory as shared volume with the docker container the variable to use is different for Windows:
+* To provide the current directory as a shared volume with the docker container the variable to use is different for Windows:
   
     * For Linux 🐧 and Mac 🍎
     
@@ -108,7 +108,7 @@ We will then use a Docker container:
 
 ## Task 2: Start the database container with a docker-compose file 📋
 
-Open the `docker-compose.yml` file provided in the workshop folder with your favorite IDE (we recommend VisualStudio Code if you don't know which one to use)
+Open the `docker-compose.yml` file provided in the workshop folder with your favourite IDE (we recommend VisualStudio Code if you don't know which one to use)
 
 Follow [tenforce/virtuoso](https://hub.docker.com/r/tenforce/virtuoso/) instructions to define a `docker-compose.yml` file to run Virtuoso, and make some changes:
 
@@ -127,7 +127,7 @@ Follow [tenforce/virtuoso](https://hub.docker.com/r/tenforce/virtuoso/) instruct
 docker-compose up
 ```
 
-You can check running Docker containers on your laptop via the Docker Desktop UI or running this command in the terminal:
+You can check running Docker containers on your laptop via the Docker Desktop U.I. or running this command in the terminal:
 
 ```shell
 docker ps
@@ -168,7 +168,7 @@ We want to run a JupyterLab to query our Virtuoso triplestore.
 
 The image is hosted in the [GitHub Container Registry](https://github.com/users/vemonet/packages/container/package/jupyterlab), and is defined in this GitHub repository: https://github.com/vemonet/Jupyterlab
 
-> If you are already comfortable with Docker, feel free to [try the advanced workshop using the official Jupyter Docker image](https://github.com/MaastrichtU-IDS/get-started-with-docker/tree/main/advanced). This workshop adds a new dimension to Docker deployment with managing files permissions and owners.
+> If you are already comfortable with Docker, feel free to [try the advanced workshop using the official Jupyter Docker image](https://github.com/MaastrichtU-IDS/get-started-with-docker/tree/main/advanced). This workshop adds a new dimension to Docker deployment with managing files, permissions and owners.
 
 1. 👩‍💻 Look into the JupyterLab Docker image documentation to find out how to deploy it with `docker-compose`
 
@@ -207,7 +207,7 @@ Access JupyterLab on http://localhost:8888 and Virtuoso on http://localhost:8890
 
 > By default `docker-compose` will create a network so that the services can access each other using their service identifier from the YAML as URL without the need to expose the ports. 
 >
-> 💡 This allows you to easily deploy a public application on top of a hidden database.
+> 💡 This allows you to quickly deploy a public application with a database in the background.
 
 ---
 
@@ -251,7 +251,7 @@ docker build -t my-jupyterlab .
 
 ---
 
-## Task 5: Login to Container Registries 🔑
+## Task 5: Log in to Container Registries 🔑
 
 It is recommended to login to existing Container Registries if you have a user on their platform (e.g. DockerHub, GitHub), it will enable higher download limitations and rates! 🏆
 
@@ -277,7 +277,7 @@ Use your existing [GitHub](https://github.com) account if you have one:
     * `write:packages`: publish container images to GitHub Container Registry
     * `delete:packages`: delete specified versions of private or public container images from GitHub Container Registry
 1. You might want to store this token in a safe place, as you will not be able to retrieve it later on github.com (you can still delete it, and create a new token easily if you lose your token)
-1. 👨‍💻 Login to the GitHub Container Registry in your terminal (change `USERNAME` and `ACCESS_TOKEN` to yours):
+1. 👨‍💻 Log in to the GitHub Container Registry in your terminal (change `USERNAME` and `ACCESS_TOKEN` to yours):
 
 ```bash
 echo "ACCESS_TOKEN" | docker login ghcr.io -u USERNAME --password-stdin
@@ -293,7 +293,7 @@ Once you built a Docker image, and you logged in to a Container Registry, you mi
 
 ### Publish to GitHub Container Registry
 
-The [GitHub Container Registry](https://docs.github.com/en/free-pro-team@latest/packages/getting-started-with-github-container-registry) is still in beta, but will be free for public images when fully released. It enables you to store your images at the same place you store your code! 📦
+The [GitHub Container Registry](https://docs.github.com/en/free-pro-team@latest/packages/getting-started-with-github-container-registry) is still in beta but will be free for public images when fully released. It enables you to store your Docker images at the same place you keep your code! 📦
 
 Publish to your user Container Registry on GitHub:
 
@@ -313,7 +313,7 @@ docker push ghcr.io/vemonet/jupyterlab:latest
 
 [DockerHub](https://hub.docker.com/) is still the most popular and mature Container Registry, and the new rates should not impact a regular user.
 
-First create the repository on [DockerHub](https://hub.docker.com/) (attached to your user or an [organization](https://hub.docker.com/orgs/umids/repositories)), then build and push the image:
+First, create the repository on [DockerHub](https://hub.docker.com/) (attached to your user or an [organization](https://hub.docker.com/orgs/umids/repositories)), then build and push the image:
 
 ```bash
 docker build -t dockerhub-username/jupyterlab:latest .
@@ -333,7 +333,7 @@ You can automate the building and publication of Docker images using GitHub Acti
 
 👀 Check the [`.github/workflows/publish-docker.yml` file](https://github.com/MaastrichtU-IDS/get-started-with-docker/blob/main/.github/workflows/publish-docker.yml) to see an example of a workflow to publish an image to the GitHub Container Registry.
 
-👩‍💻 You just need to change the `IMAGE_NAME`, and use it in your GitHub repository to publish a Docker image for your application automatically! It will build from a `Dockerfile` at the root of the repository.
+👩‍💻 You only need to change the `IMAGE_NAME`, and use it in your GitHub repository to publish a Docker image for your application automatically! It will build from a `Dockerfile` at the root of the repository.
 
 The workflow can be easily configured to:
 
@@ -343,7 +343,7 @@ The workflow can be easily configured to:
 
 > If you publish your image on DockerHub, you can use [automated build on DockerHub](https://docs.docker.com/docker-hub/builds/).
 
-> GitHub Actions is still currently evolving quickly, feel free to check if they recommend new way to build and publish containers 🚀
+> GitHub Actions is still currently evolving quickly, feel free to check if they recommend a new way to build and publish containers 🚀
 
 ---
 
@@ -355,4 +355,4 @@ Go in the [`solution` folder](https://github.com/MaastrichtU-IDS/get-started-wit
 * `Dockerfile` with root user and additional packages installed for a custom JupyterLab image
 * `docker-compose.yml` to build and run a custom JupyterLab container and a Virtuoso database
 
-> See also, the previous docker-workshop given at IDS: https://github.com/MaastrichtU-IDS/docker-workshop
+> See also, the previous docker-workshop provided by IDS: https://github.com/MaastrichtU-IDS/docker-workshop
