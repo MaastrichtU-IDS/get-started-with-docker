@@ -17,11 +17,14 @@ services:
 
   jupyterlab:
     container_name: jupyterlab
-    image: ghcr.io/vemonet/jupyterlab
+    image: ghcr.io/maastrichtu-ids/jupyterlab-on-openshift
+    #build: .
+    user: root
     ports:
-      - 8888:8888
-    volumes:
-      - ./data:/notebooks
+      - 8080:8888
+    # volumes:
+    #   - ./data/jupyterlab:/home/jovyan
     environment:
-      - PASSWORD=password
-      - GIT_URL=https://github.com/vemonet/translator-sparql-notebook
+      - JUPYTER_TOKEN=password
+      - JUPYTER_ENABLE_LAB=yes
+      - GRANT_SUDO=yes

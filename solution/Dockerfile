@@ -1,8 +1,5 @@
 # Start from an existing JupyterLab image
-FROM ghcr.io/maastrichtu-ids/jupyterlab-on-openshift
-
-# Change user to root to install packages and avoid permission issues
-USER root
+FROM ghcr.io/vemonet/jupyterlab
 
 # Install a package from pip
 RUN pip install rdflib

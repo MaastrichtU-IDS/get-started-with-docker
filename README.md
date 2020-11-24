@@ -12,12 +12,15 @@ During this workshop you will:
 Prerequisites:
 
 * [Docker](https://docs.docker.com/get-docker/) installed
+  
   * If you use Windows 🏢, we recommend you to use Docker with [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
   * If you use Linux 🐧, you will need to make sure you have also [`docker-compose` installed](https://docs.docker.com/compose/install/)
+  
 * Really basic knowledge of how to navigate in the terminal ⌨️
   1. **L**i**s**t files in current directory: `ls`
   2. Find the **P**ath to the (current) **W**orking **D**irectory: `pwd`
   3. **C**hange **D**irectory: `cd subfolder` or `cd ../parent-folder`
+  4. Use the `tab` key in your terminal to get recommendations for potential command arguments (later [install ZSH](https://ohmyz.sh/) for a better experience in the terminal)
 
   > When defining a path, the dot `.` defines the current directory, it is usually used at the start of the path, e.g. `./data` for the data folder in the current directory)
   >
@@ -27,11 +30,10 @@ Prerequisites:
 
 * [Get the workshop files <g-emoji class="g-emoji" alias="inbox_tray" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e5.png">📥</g-emoji>](#get-the-workshop-files-)
 * [Task 1: Find and start a database container <g-emoji class="g-emoji" alias="mag_right" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f50e.png">🔎</g-emoji>](#task-1-find-and-start-a-database-container-)
-* [Task 2: Start the container with a docker-compose file <g-emoji class="g-emoji" alias="clipboard" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4cb.png">📋</g-emoji>](#task-2-start-the-container-with-a-docker-compose-file-)
+* [Task 2: Start the database container with a docker-compose file <g-emoji class="g-emoji" alias="clipboard" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4cb.png">📋</g-emoji>](#task-2-start-the-database-container-with-a-docker-compose-file-)
 * [Task 3: Add JupyterLab to the docker-compose <g-emoji class="g-emoji" alias="telescope" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f52d.png">🔭</g-emoji>](#task-3-add-jupyterlab-to-the-docker-compose-)
-* [Task 4: Run JupyterLab with admin rights <g-emoji class="g-emoji" alias="unlock" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f513.png">🔓</g-emoji>](#task-4-run-jupyterlab-with-admin-rights-)
-* [Task 5: Customize the Dockerfile <g-emoji class="g-emoji" alias="package" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e6.png">📦</g-emoji>](#task-5-customize-the-dockerfile-)
-* [Task 6: Login to Container Registries <g-emoji class="g-emoji" alias="key" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f511.png">🔑</g-emoji>](#task-6-login-to-container-registries-)
+* [Task 4: Customize the Docker image <g-emoji class="g-emoji" alias="package" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e6.png">📦</g-emoji>](#task-4-customize-the-docker-image-)
+* [Task 5: Login to Container Registries <g-emoji class="g-emoji" alias="key" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f511.png">🔑</g-emoji>](#task-5-login-to-container-registries-)
     * [Login to DockerHub](#login-to-dockerhub)
     * [Login to GitHub Container Registry](#login-to-github-container-registry)
 * [Bonus: Publish your image <g-emoji class="g-emoji" alias="loudspeaker" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e2.png">📢</g-emoji>](#bonus-publish-your-image-)
@@ -62,9 +64,11 @@ cd get-started-with-docker
 
 > For the whole workshop we assume you are running the terminal commands from this directory.
 
+---
+
 ## Task 1: Find and start a database container 🔎
 
-We want to start the [OpenLink Virtuoso database](http://vos.openlinksw.com/owiki/wiki/VOS) (a triplestore for RDF data) without loosing time installing all the required packages and setting up the configuration. 
+We want to start the [OpenLink Virtuoso database](http://vos.openlinksw.com/owiki/wiki/VOS) (a triplestore for RDF data) without losing time installing all the required packages and setting up the configuration. 
 
 We will then use a Docker container:
 
@@ -100,7 +104,9 @@ We will then use a Docker container:
 
 > You can also check how Virtuoso is installed in the image [Dockerfile](https://github.com/tenforce/docker-virtuoso/blob/master/Dockerfile)
 
-## Task 2: Start the container with a docker-compose file 📋
+---
+
+## Task 2: Start the database container with a docker-compose file 📋
 
 Open the `docker-compose.yml` file provided in the workshop folder with your favorite IDE (we recommend VisualStudio Code if you don't know which one to use)
 
@@ -110,13 +116,10 @@ Follow [tenforce/virtuoso](https://hub.docker.com/r/tenforce/virtuoso/) instruct
 * Use the `latest` tag of the image: `tenforce/virtuoso:latest`
 * Set the `DBA_PASSWORD` environment variable to `dba`
 * Change the `DEFAULT_GRAPH` to https://w3id.org/um/ids/graph
+* Keep the `volumes` as described in tenforce/virtuoso, the triplestore `/data` files will be shared on your computer in `./data/virtuoso`
+  * N.B.: `docker-compose` uses `./` to define a volume path from the directory where the YAML file is stored
 
-> N.B.: In the `docker-compose.yml` file we use the current directory of the yml file to store the container data, use `.` at the start of the volume path:
->
-> ```yaml
->     volumes:
->       - ./data/virtuoso:/data
-> ```
+> ⚠️ Be careful with the indentation, it is meaningful in YAML files
 
 👩‍💻 Start the containers defined in the `docker-compose.yml` file from your terminal:
 
@@ -152,50 +155,40 @@ docker-compose logs
 docker-compose down
 ```
 
+---
+
 ## Task 3: Add JupyterLab to the docker-compose 🔭
 
-We will **add a JupyterLab to the docker-compose**, and use it to query the Virtuoso triplestore.
+We want to run a JupyterLab to query our Virtuoso triplestore. 
 
-We will use a JupyterLab image with SPARQL libraries hosted on the [MaastrichU-IDS GitHub Container Registry](https://github.com/orgs/MaastrichtU-IDS/packages/container/package/jupyterlab-on-openshift).
+* We could try to install locally the [IJava kernel](https://github.com/SpencerPark/IJava) and the [SPARQL kernel](https://github.com/paulovn/sparql-kernel), but it will take more time and will be prone to installation errors and conflicts ❌ (We already tried with our students in the bachelor program!)
+* The easiest would be to start a JupyterLab Docker container with the 2 kernels pre-installed ✔️
 
-1. Add the `jupyterlab` service to your `docker-compose.yml` (be careful with the indentation, it is meaninful):
+🍀 Luckily there is already a Docker image with all those kernels installed! 
 
-```yaml
-  jupyterlab:
-    container_name: jupyterlab
-    image: ghcr.io/maastrichtu-ids/jupyterlab-on-openshift
-    environment:
-      - JUPYTER_TOKEN=dba
-      - JUPYTER_ENABLE_LAB=yes
-```
+The image is hosted in the [GitHub Container Registry](https://github.com/users/vemonet/packages/container/package/jupyterlab), and is defined in this GitHub repository: https://github.com/vemonet/Jupyterlab
 
-2. 👩‍💻 You will need to add:
+> If you are already comfortable with Docker, feel free to try the advanced workshop using the official Jupyter Docker image. This workshop adds a new dimension to Docker deployment with managing files permissions and owners.
 
-    * Mapping from the JupyterLab container port `8888` to your computer port `8080`. Use `8080:8888`
-    * The shared volume on `./data/jupyterlab:/home/jovyan`
+1. 👩‍💻 Look into the JupyterLab Docker image documentation to find out how to deploy it with `docker-compose`
 
-> ⚠️ The official Jupyter Docker image uses the `jovyan` user by default which does not have admin rights (`sudo`). This can cause issues when writing to the shared volumes, to fix it you can change the owner of the folder or start JupyterLab as root user.
+2. You will need to change (be careful with the indentation, it is meaningful in YAML files):
 
-3. Create the folder with the right permissions before starting the containers!
+    * The mapping from the JupyterLab container port `8888` to your computer port `8080`. Use `8080:8888`
+    * The shared volume to `./data/jupyterlab:/notebooks`
+    
+    > Notice that the path/port mappings between your local machine and the container are always defined on the same side of the `:`
+    >
+    > * On your **local machine: always on the left ⬅️**
+    > * In the **container: always on the right ➡️**
 
-You need to create the folder you will use to store JupyterLab data, and define the right permissions, before running the JupyterLab container. Here is the command for Linux and Mac:
-
-```shell
-sudo mkdir -p data/jupyterlab
-sudo chown -R 1000:1000 data/jupyterlab
-```
-
-4. Start JupyterLab and Virtuoso:
+3. Start JupyterLab and Virtuoso:
 
 ```shell
 docker-compose up
 ```
 
-Access JupyterLab on http://localhost:8888 (use `dba` as password) and Virtuoso on http://localhost:8890
-
-> ⚠️ If you are experiencing issue with the folder permissions: **remove the volume of the JupyterLab container in the `docker-compose.yml`**
->
-> Docker will use an ephemeral storage that disappear when the container is deleted.
+Access JupyterLab on http://localhost:8888 and Virtuoso on http://localhost:8890
 
 5. Query the Virtuoso database from the JupyterLab container
    
@@ -216,66 +209,24 @@ Access JupyterLab on http://localhost:8888 (use `dba` as password) and Virtuoso 
 >
 > 💡 This allows you to easily deploy a public application on top of a hidden database.
 
-## Task 4: Run JupyterLab with admin rights 🔓
-
-You can also run JupyterLab with the `root` user to have admin rights
-
-> 👨‍💻 Stop the previously ran Jupyterlab container (`ctrl + c` or `docker-compose down`)
->
-
-We will now change the `docker-compose.yml` to start JupyterLab with the root user.
-
-👩‍💻 Add the following parameters at the right place in the `docker-compose.yml`:
-
-```yaml
-services:
-  jupyterlab:
-    user: root
-    environment:
-      - GRANT_SUDO=yes
-```
-
-👨‍💻 Restart JupyterLab and Virtuoso from the terminal:
-
-```shell
-docker-compose up --force-recreate
-```
-
-1. You should now be able to install anything in the JupyterLab container. Open a terminal in the [JupyterLab web UI](http://localhost:8888/), and try to update the packages. Running `apt update`  will fail due to lack of permission, use `sudo`:
-
-   ```shell
-   sudo apt update
-   ```
-
-2. Create again a **SPARQL notebook** in the [JupyterLab](http://localhost:8888) to check querying the [SPARQL endpoint](http://localhost:8890) works:
-
-   ```SPARQL
-   %endpoint http://db:8890/sparql
-   SELECT * WHERE {
-       ?s ?p ?o .
-   } LIMIT 10
-   ```
+---
 
 
-## Task 5: Customize the Dockerfile 📦
+## Task 4: Customize the Docker image 📦
 
-We will improve the `Dockerfile` of the JupyterLab container to have a custom image with additional packages installed.
+We will improve the `Dockerfile` of the JupyterLab container to build a custom image with additional packages installed.
 
-> See the [GitHub repository for the JupyterLab image](https://github.com/MaastrichtU-IDS/jupyterlab-on-openshift/).
+> See the [GitHub repository for the JupyterLab image](https://github.com/vemonet/jupyterlab/).
 
 Use the `Dockerfile` provided in the workshop folder to define your image.
 
 It will start from the JupyterLab image we were previously using:
 
 ```dockerfile
-FROM ghcr.io/maastrichtu-ids/jupyterlab-on-openshift
+FROM ghcr.io/vemonet/jupyterlab
 ```
 
-👩‍💻 In the `Dockerfile`, you will need to:
-
-1. Change the user to `root` (to have admin rights by default)
-
-2. Install the python package `rdflib` with `pip install` (💡 bonus: you can use the `requirements.txt` file to install the `rdflib` package in the container)
+👩‍💻 In the `Dockerfile`, you will install the python package `rdflib` with `pip install` (💡 bonus: you can use the `requirements.txt` file to install the `rdflib` package in the container)
 
 
 3. Go in the `docker-compose.yml` to build the container from the local `Dockerfile`, instead of using an existing image:
@@ -283,7 +234,7 @@ FROM ghcr.io/maastrichtu-ids/jupyterlab-on-openshift
 ```yaml
 services:
   jupyterlab:
-    # image: ghcr.io/maastrichtu-ids/jupyterlab-on-openshift
+    # image: ghcr.io/vemonet/jupyterlab
     build: .
 ```
 
@@ -299,7 +250,9 @@ You can also build the image using the `docker` command:
 docker build -t my-jupyterlab .
 ```
 
-## Task 6: Login to Container Registries 🔑
+---
+
+## Task 5: Login to Container Registries 🔑
 
 It is recommended to login to existing Container Registries if you have a user on their platform (e.g. DockerHub, GitHub), it will enable higher download limitations and rates! 🏆
 
@@ -324,7 +277,7 @@ Use your existing [GitHub](https://github.com) account if you have one:
     * `read:packages`: download container images from GitHub Container Registry
     * `write:packages`: publish container images to GitHub Container Registry
     * `delete:packages`: delete specified versions of private or public container images from GitHub Container Registry
-1. You might want to store this token in a safe place, as you will not be able to retrieve it later (you can still delete it, and create a new token easily)
+1. You might want to store this token in a safe place, as you will not be able to retrieve it later on github.com (you can still delete it, and create a new token easily if you lose your token)
 1. 👨‍💻 Login to the GitHub Container Registry in your terminal (change `USERNAME` and `ACCESS_TOKEN` to yours):
 
 ```bash
@@ -333,26 +286,28 @@ echo "ACCESS_TOKEN" | docker login ghcr.io -u USERNAME --password-stdin
 
 > See the [official GitHub documentation](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages).
 
+---
+
 ## Bonus: Publish your image 📢
 
-Once you built a Docker image you might want to publish it to pull it, and re-use it easily later.
+Once you built a Docker image, and you logged in to a Container Registry, you might want to publish the image to pull and re-use it easily later.
 
 ### Publish to GitHub Container Registry
 
-The [GitHub Container Registry](https://docs.github.com/en/free-pro-team@latest/packages/getting-started-with-github-container-registry) is still in beta, but will be free for public images. And it enables you to store your images at the same place you store your code.
+The [GitHub Container Registry](https://docs.github.com/en/free-pro-team@latest/packages/getting-started-with-github-container-registry) is still in beta, but will be free for public images when fully released. It enables you to store your images at the same place you store your code! 📦
 
-Publish to your GitHub user registry:
+Publish to your user Container Registry on GitHub:
 
 ```bash
 docker build -t ghcr.io/github-username/jupyterlab:latest .
 docker push ghcr.io/github-username/jupyterlab:latest
 ```
 
-Or to the [MaastrichtU-IDS GitHub Container Registry](https://github.com/orgs/MaastrichtU-IDS/packages):
+Or to the [MaastrichtU-IDS Container Registry on GitHub](https://github.com/orgs/MaastrichtU-IDS/packages):
 
 ```bash
-docker build -t ghcr.io/maastrichtu-ids/jupyterlab-on-openshift:latest .
-docker push ghcr.io/maastrichtu-ids/jupyterlab-on-openshift:latest
+docker build -t ghcr.io/vemonet/jupyterlab:latest .
+docker push ghcr.io/vemonet/jupyterlab:latest
 ```
 
 ### Publish to DockerHub
@@ -391,10 +346,14 @@ The workflow can be easily configured to:
 
 > GitHub Actions is still currently evolving quickly, feel free to check if they recommend new way to build and publish containers 🚀
 
+---
+
 ## Check the solution ✔️
 
 Go in the [`solution` folder](https://github.com/MaastrichtU-IDS/get-started-with-docker/tree/main/solution) to check the solution:
 
 * `README.md` for the general solution guidelines, and to run Virtuoso with the `docker run` command
-* `Dockerfile` with root user and additional packages installed
-* `docker-compose.yml` to build and run custom JupyterLab and Virtuoso database
+* `Dockerfile` with root user and additional packages installed for a custom JupyterLab image
+* `docker-compose.yml` to build and run a custom JupyterLab container and a Virtuoso database
+
+> See also, the previous docker-workshop given at IDS: https://github.com/MaastrichtU-IDS/docker-workshop
