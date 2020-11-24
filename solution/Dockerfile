@@ -5,7 +5,7 @@ FROM ghcr.io/vemonet/jupyterlab
 RUN pip install rdflib
 
 ## We could also install it from the requirements.txt file:
-# Copu requirements.txt file in the container
+# Copy requirements.txt file in the container
 ADD requirements.txt .
 # Run pip install on the file in the container
 RUN pip install -r requirements.txt
