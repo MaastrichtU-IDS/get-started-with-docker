@@ -265,6 +265,11 @@ docker-compose up --build
    # Now hit the keys `ctrl + space` to show the suggestions
    ```
 
+> You can check the [Translator OpenPredict API](https://github.com/MaastrichtU-IDS/translator-openpredict) to see an example of a complete Python application with database backend running with Docker:
+>
+> * Check the [Python API `Dockerfile`](https://github.com/MaastrichtU-IDS/translator-openpredict/blob/master/Dockerfile)
+> * Check the [`docker-compose.yml`](https://github.com/MaastrichtU-IDS/translator-openpredict/blob/master/docker-compose.yml) to deploy the API with a Virtuoso database
+
 ---
 
 ## Task 5: Log in to Container Registries 🔑
