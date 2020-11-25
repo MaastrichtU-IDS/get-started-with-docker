@@ -17,7 +17,8 @@ services:
 
   jupyterlab:
     container_name: jupyterlab
-    image: ghcr.io/vemonet/jupyterlab
+    # image: ghcr.io/vemonet/jupyterlab
+    build: .
     ports:
       - 8888:8888
     volumes:

@@ -6,8 +6,8 @@ During this workshop, you will:
 
 * Find and run a Docker image for a database service (a Virtuoso triplestore for RDF data)
 * Define a `docker-compose.yml` file to run a JupyterLab container alongside the database
-* Run the JupyterLab container as restricted or admin user
 * Customize an existing image by installing new packages and changing the user (JupyterLab)
+* Login to DockerHub and GitHub Container Registry.
 
 Prerequisites:
 
@@ -216,7 +216,7 @@ Access JupyterLab on http://localhost:8888 and Virtuoso on http://localhost:8890
 
 We will improve the `Dockerfile` of the JupyterLab container to build a custom image with additional packages installed.
 
-> See the [GitHub repository for the JupyterLab image](https://github.com/vemonet/jupyterlab/).
+> Checkout the [Dockerfile of the JupyterLab image](https://github.com/vemonet/Jupyterlab/blob/main/Dockerfile) to see how a complete image can be built.
 
 Open the `Dockerfile` provided in the workshop folder to define your image.
 
@@ -273,7 +273,6 @@ Use your existing [GitHub](https://github.com) account if you have one:
 
 1. Create a **Personal Access Token** for GitHub packages at **https://github.com/settings/tokens/new**
 1. Provide a meaningful description for the token, and enable the following scopes when creating the token:
-    * `read:packages`: download container images from GitHub Container Registry
     * `write:packages`: publish container images to GitHub Container Registry
     * `delete:packages`: delete specified versions of private or public container images from GitHub Container Registry
 1. You might want to store this token in a safe place, as you will not be able to retrieve it later on github.com (you can still delete it, and create a new token easily if you lose your token)
@@ -320,7 +319,7 @@ docker build -t dockerhub-username/jupyterlab:latest .
 docker push dockerhub-username/jupyterlab:latest
 ```
 
-> You can also change the name of an existing image:
+> You can also change the name (aka. tag) of an existing image:
 >
 > ```bash
 > docker build -t my-jupyterlab .
@@ -354,5 +353,6 @@ Go in the [`solution` folder](https://github.com/MaastrichtU-IDS/get-started-wit
 * `README.md` for the general solution guidelines, and to run Virtuoso with the `docker run` command
 * `Dockerfile` with root user and additional packages installed for a custom JupyterLab image
 * `docker-compose.yml` to build and run a custom JupyterLab container and a Virtuoso database
+* `docker-compose.advanced.yml` to run the official JupyterLab container and a Virtuoso database
 
 > See also, the previous docker-workshop provided by IDS: https://github.com/MaastrichtU-IDS/docker-workshop
