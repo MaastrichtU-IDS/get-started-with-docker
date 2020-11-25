@@ -243,11 +243,27 @@ services:
 docker-compose up --build
 ```
 
-You can also build the image using the `docker` command:
+> You can also build the image using the `docker` command:
+>
+> ```shell
+> docker build -t my-jupyterlab .
+> ```
+>
 
-```shell
-docker build -t my-jupyterlab .
-```
+👩‍💻 Access the JupyterLab, create a new **Python Notebook**, and try out `rdflib` with autocomplete and suggestions:
+
+1. Create and run a cell to import `rdflib`:
+
+   ```python
+   import rdflib
+   ```
+
+2. Create a graph using autocomplete
+
+   ```python
+   rdflib.
+   # Now hit the keys `ctrl + space` to show the suggestions
+   ```
 
 ---
 
