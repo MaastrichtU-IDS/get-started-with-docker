@@ -329,6 +329,8 @@ docker build -t ghcr.io/vemonet/jupyterlab:latest .
 docker push ghcr.io/vemonet/jupyterlab:latest
 ```
 
+> If the image does not exist, GitHub Container Registry will create automatically and set it as **Private** by default. You can easily change it to **Public** in your image settings on GitHub.
+
 ### Publish to DockerHub
 
 [DockerHub](https://hub.docker.com/) is still the most popular and mature Container Registry, and the new rates should not impact a regular user.
