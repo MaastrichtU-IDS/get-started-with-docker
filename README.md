@@ -188,7 +188,7 @@ The image is hosted in the [GitHub Container Registry](https://github.com/users/
 docker-compose up
 ```
 
-Access JupyterLab on http://localhost:8888 and Virtuoso on http://localhost:8890
+Access JupyterLab on http://localhost:8080 (or 8888 depending on what you defined) and Virtuoso on http://localhost:8890
 
 5. Query the Virtuoso database from the JupyterLab container
    
